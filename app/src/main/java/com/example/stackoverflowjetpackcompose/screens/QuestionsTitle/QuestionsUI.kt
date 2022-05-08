@@ -1,61 +1,45 @@
 package com.example.stackoverflowjetpackcompose.screens.QuestionsTitle
 
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.itemsIndexed
-import androidx.compose.material.Card
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import com.example.stackoverflowjetpackcompose.model.TopQuestions
+import androidx.paging.compose.LazyPagingItems
+import androidx.paging.compose.collectAsLazyPagingItems
+import com.example.stackoverflowjetpackcompose.model.Item
 
 @Composable
 
 fun QuestionUI(questionsViewModel: QuestionsTitleViewModel) {
 
-    val questionData =  remember { questionsViewModel.questionItem }
+   val getQuestions = questionsViewModel.getQuestions.collectAsLazyPagingItems()
+    ScreenContent(getQuestions)
 
-    ScreenContent(data = questionData)
 }
-
-
-
-
 
 @Composable
 
-fun ScreenContent(data : TopQuestions){
+fun ScreenContent(item:LazyPagingItems<Item>){
 
-    var itemValues = data.items
-
-    LazyColumn(
+    LazyColumn(modifier = Modifier.fillMaxSize(),
+        contentPadding = PaddingValues(all = 6.dp),
+        verticalArrangement = Arrangement.spacedBy(6.dp)
 
     ){
-        itemsIndexed(itemValues){index, item ->
 
-            Card(
-                modifier = Modifier
-                    .padding(8.dp, 4.dp)
-                    .fillMaxWidth()
-                    .height(20.dp)
 
-            ){
-                Column(){
+   items(item.itemCount){
 
-                    Text(item.title)
-                    Text(item.answer_count.toString())
+       Text(item.toString())
 
-                }
-
-            }
-
-        }
+   }
+    }
 
     }
 
-}
+
+
