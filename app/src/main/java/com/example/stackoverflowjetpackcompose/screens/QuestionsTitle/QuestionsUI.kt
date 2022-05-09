@@ -8,13 +8,14 @@ import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.paging.compose.LazyPagingItems
 import androidx.paging.compose.collectAsLazyPagingItems
 import com.example.stackoverflowjetpackcompose.model.Item
 
 @Composable
 
-fun QuestionUI(questionsViewModel: QuestionsTitleViewModel) {
+fun QuestionUI(questionsViewModel: QuestionsTitleViewModel = hiltViewModel()) {
 
    val getQuestions = questionsViewModel.getQuestions.collectAsLazyPagingItems()
     ScreenContent(getQuestions)
@@ -31,9 +32,7 @@ fun ScreenContent(item:LazyPagingItems<Item>){
 
     ){
 
-
    items(item.itemCount){
-
        Text(item.toString())
 
    }

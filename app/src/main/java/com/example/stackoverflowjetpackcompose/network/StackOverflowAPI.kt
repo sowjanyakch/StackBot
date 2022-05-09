@@ -12,35 +12,11 @@ import retrofit2.http.GET
 import retrofit2.http.Query
 
 
-interface StackOverflowAPIService
+interface StackOverflowAPI
 {
     @GET("2.3/questions?order=desc&sort=votes&tagged=android&site=stackoverflow&filter=!nKzQUR3Egv")
     suspend fun getQuestions(@Query("page") page:Int,
                              @Query("pagesize") pagesize:Int = ITEMS_PER_PAGE): TopQuestions
 }
 
-private val okHttpLoggingInterceptor by lazy {
-    HttpLoggingInterceptor().apply {
-        level =
-            if (BuildConfig.DEBUG)
-                HttpLoggingInterceptor.Level.BODY
-            else
-                HttpLoggingInterceptor.Level.NONE
-    }
-}
 
-private val okHttpClient = OkHttpClient.Builder()
-    .addInterceptor(okHttpLoggingInterceptor)
-    .build()
-
-private val retrofit: Retrofit = Retrofit.Builder()
-    .baseUrl(BASE_URL)
-    .callFactory(okHttpClient)
-    .addConverterFactory(GsonConverterFactory.create())
-    .build()
-
-object StackOverflowAPI{
-    val retrofitService: StackOverflowAPIService by lazy {
-        retrofit.create(StackOverflowAPIService::class.java)
-    }
-}

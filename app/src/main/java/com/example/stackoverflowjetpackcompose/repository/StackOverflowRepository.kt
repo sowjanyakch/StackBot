@@ -5,14 +5,14 @@ import androidx.paging.PagingConfig
 import androidx.paging.PagingData
 import com.example.stackoverflowjetpackcompose.model.Item
 import com.example.stackoverflowjetpackcompose.network.StackOverflowAPI
-import com.example.stackoverflowjetpackcompose.network.StackOverflowAPIService
 import com.example.stackoverflowjetpackcompose.paging.StackSource
 import com.example.stackoverflowjetpackcompose.utils.Constants.ITEMS_PER_PAGE
 import kotlinx.coroutines.flow.Flow
+import javax.inject.Inject
 
-class Repository(){
+class Repository @Inject constructor(private val api: StackOverflowAPI){
 
-    private val api: StackOverflowAPIService = StackOverflowAPI.retrofitService
+
     fun getQuestions():Flow<PagingData<Item>>{
 
         return Pager(

@@ -3,10 +3,11 @@ package com.example.stackoverflowjetpackcompose.paging
 import androidx.paging.PagingSource
 import androidx.paging.PagingState
 import com.example.stackoverflowjetpackcompose.model.Item
-import com.example.stackoverflowjetpackcompose.network.StackOverflowAPIService
+import com.example.stackoverflowjetpackcompose.network.StackOverflowAPI
+
 
 class StackSource(
-    private val stackOverflowAPIService: StackOverflowAPIService
+    private val stackOverflowAPI: StackOverflowAPI
 ): PagingSource<Int, Item>() {
     override fun getRefreshKey(state: PagingState<Int, Item>): Int? {
         return state.anchorPosition
@@ -17,7 +18,7 @@ class StackSource(
 
         return try
         {
-            val stackResponse = stackOverflowAPIService.getQuestions(1)
+            val stackResponse = stackOverflowAPI.getQuestions(1)
             val endOfPaginationReached = stackResponse.items.isEmpty()
             if(stackResponse.has_more == true){
               LoadResult.Page(
