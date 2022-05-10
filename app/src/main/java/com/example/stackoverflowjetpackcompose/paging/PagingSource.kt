@@ -1,5 +1,6 @@
 package com.example.stackoverflowjetpackcompose.paging
 
+import android.util.Log
 import androidx.paging.PagingSource
 import androidx.paging.PagingState
 import com.example.stackoverflowjetpackcompose.model.Item
@@ -15,10 +16,12 @@ class StackSource(
 
     override suspend fun load(params: LoadParams<Int>): LoadResult<Int, Item> {
         val currentPage = params.key?:1
+        Log.d("Paging Source","$currentPage")
+
 
         return try
         {
-            val stackResponse = stackOverflowAPI.getQuestions(1)
+            val stackResponse = stackOverflowAPI.getQuestions(currentPage)
             val endOfPaginationReached = stackResponse.items.isEmpty()
             if(stackResponse.has_more == true){
               LoadResult.Page(

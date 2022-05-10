@@ -1,8 +1,8 @@
 package com.example.stackoverflowjetpackcompose.di
 
+
 import com.example.stackoverflowjetpackcompose.BuildConfig
 import com.example.stackoverflowjetpackcompose.network.StackOverflowAPI
-import com.example.stackoverflowjetpackcompose.utils.Constants
 import com.example.stackoverflowjetpackcompose.utils.Constants.BASE_URL
 import dagger.Module
 import dagger.Provides
