@@ -1,14 +1,18 @@
 package com.example.stackoverflowjetpackcompose.screens.SplashScreen
 
-import android.util.Log
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.navigation.NavController
 import com.example.stackoverflowjetpackcompose.navigation.ScreensList
+import kotlinx.coroutines.delay
 
 @Composable
 fun SplashScreen(navController: NavController){
     Text("SplashScreen")
-    navController.navigate(ScreensList.QuestionsUI.name)
-    Log.d("SplashScreen","End")
+    LaunchedEffect(Unit){
+        delay(2000)
+        navController.popBackStack()
+        navController.navigate(ScreensList.QuestionsUI.name)
+    }
 }

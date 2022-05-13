@@ -13,13 +13,15 @@ import dagger.hilt.android.AndroidEntryPoint
 @AndroidEntryPoint
 
 class MainActivity : ComponentActivity() {
-    val questionsViewModel:QuestionsTitleViewModel by viewModels()
+
+    private val questionsTitleViewModel by viewModels<QuestionsTitleViewModel>()
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
             Log.d("Navigation","Call to Question Navigation")
-           QuestionNavigation(questionsViewModel)
+           QuestionNavigation(questionsTitleViewModel)
         }
     }
 }
