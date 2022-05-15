@@ -41,7 +41,7 @@ itemsIndexed(items = item
 
         Text(text = item!!.title, modifier = Modifier.clickable{
             navController.popBackStack()
-            navController.navigate(ScreensList.QuestionsDetailScreen.name + "/$item")
+            navController.navigate(ScreensList.QuestionsDetailScreen.name + "/${item.question_id}")
         })
         Text(text = item.answer_count.toString())
 }

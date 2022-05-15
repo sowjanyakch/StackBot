@@ -8,6 +8,7 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
 import com.example.stackoverflowjetpackcompose.screens.QuestionsDetails.QuestionsDetails
+import com.example.stackoverflowjetpackcompose.screens.QuestionsDetails.QuestionsDetailsViewModel
 import com.example.stackoverflowjetpackcompose.screens.QuestionsTitle.QuestionUI
 import com.example.stackoverflowjetpackcompose.screens.QuestionsTitle.QuestionsTitleViewModel
 import com.example.stackoverflowjetpackcompose.screens.SplashScreen.SplashScreen
@@ -16,7 +17,8 @@ import com.example.stackoverflowjetpackcompose.screens.SplashScreen.SplashScreen
 @Composable
 
 
-fun QuestionNavigation(questionsTitleViewModel: QuestionsTitleViewModel = hiltViewModel()){
+fun QuestionNavigation(questionsTitleViewModel: QuestionsTitleViewModel = hiltViewModel(),
+questionsDetailsViewModel: QuestionsDetailsViewModel = hiltViewModel()){
 
     val navController = rememberNavController()
     NavHost(navController = navController, startDestination = ScreensList.SplashScreen.name) {
@@ -28,17 +30,18 @@ fun QuestionNavigation(questionsTitleViewModel: QuestionsTitleViewModel = hiltVi
             QuestionUI(navController,questionsTitleViewModel)
         }
         val route = ScreensList.QuestionsDetailScreen.name
-        composable("$route/{item}",
-            arguments= listOf(navArgument(name = "item"){
-                type = NavType.inferFromValueType("item")
+        composable("$route/{question_id}",
+            arguments= listOf(navArgument(name = "question_id"){
+                type = NavType.IntType
             })){
             navBack ->
 
-            navBack.arguments?.get("item").let{
+            navBack.arguments?.getInt("question_id")?.let{
                 item ->
-                QuestionsDetails(item = item!!)
+                QuestionsDetails(item = item, questionsDetailsViewModel = questionsDetailsViewModel)
             }
         }
+
     }
 }
 
