@@ -10,7 +10,5 @@ import javax.inject.Inject
 
 @HiltViewModel
 class QuestionsTitleViewModel @Inject constructor (repository:Repository) : ViewModel() {
-
     val getQuestions = repository.getQuestions().cachedIn(viewModelScope)
-
 }

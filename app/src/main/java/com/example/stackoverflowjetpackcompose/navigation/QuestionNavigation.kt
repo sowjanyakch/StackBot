@@ -13,9 +13,7 @@ import com.example.stackoverflowjetpackcompose.screens.QuestionsTitle.QuestionUI
 import com.example.stackoverflowjetpackcompose.screens.QuestionsTitle.QuestionsTitleViewModel
 import com.example.stackoverflowjetpackcompose.screens.SplashScreen.SplashScreen
 
-
 @Composable
-
 
 fun QuestionNavigation(questionsTitleViewModel: QuestionsTitleViewModel = hiltViewModel(),
 questionsDetailsViewModel: QuestionsDetailsViewModel = hiltViewModel()){
@@ -36,12 +34,18 @@ questionsDetailsViewModel: QuestionsDetailsViewModel = hiltViewModel()){
             })){
             navBack ->
 
-            navBack.arguments?.getInt("question_id")?.let{
-                item ->
-                QuestionsDetails(item = item, questionsDetailsViewModel = questionsDetailsViewModel)
+            navBack.arguments?.getInt("question_id")?.let{ questionId ->
+                QuestionsDetails(questionId, questionsDetailsViewModel = questionsDetailsViewModel,
+                onBack = {
+                    navController.popBackStack()
+                    navController.navigate(ScreensList.QuestionsUI.name )
+                }
+                    )
             }
         }
-
     }
 }
+
+
+
 

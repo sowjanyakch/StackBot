@@ -6,7 +6,6 @@ import androidx.paging.PagingState
 import com.example.stackoverflowjetpackcompose.model.Item
 import com.example.stackoverflowjetpackcompose.network.StackOverflowAPI
 
-
 class StackSource(
     private val stackOverflowAPI: StackOverflowAPI
 ): PagingSource<Int, Item>() {
@@ -17,7 +16,6 @@ class StackSource(
     override suspend fun load(params: LoadParams<Int>): LoadResult<Int, Item> {
         val currentPage = params.key?:1
         Log.d("Paging Source","$currentPage")
-
 
         return try
         {
@@ -41,5 +39,4 @@ class StackSource(
             LoadResult.Error(e)
         }
     }
-
 }

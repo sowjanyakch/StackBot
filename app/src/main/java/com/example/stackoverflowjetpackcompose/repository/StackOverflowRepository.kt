@@ -13,16 +13,13 @@ import javax.inject.Inject
 
 class Repository @Inject constructor(private val api: StackOverflowAPI){
 
-
     fun getQuestions():Flow<PagingData<Item>>{
-
         return Pager(
             config = PagingConfig(pageSize = ITEMS_PER_PAGE),
             pagingSourceFactory = {
                 StackSource(api)
             }
         ).flow
-
     }
 
   suspend fun getQuestionsbyid(questionId:Int): QuestionItem {

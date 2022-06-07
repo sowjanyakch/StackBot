@@ -14,17 +14,27 @@ import javax.inject.Inject
 @HiltViewModel
 class QuestionsDetailsViewModel @Inject constructor (private val repository: Repository) : ViewModel() {
 
-  var questionbyId by mutableStateOf(QuestionItem(false,emptyList(),0,0))
+    var viewState by mutableStateOf<QuestionDetailsViewState>(QuestionDetailsViewState.None)
+    private set
 
-        fun getQuestionsbyId(questionId:Int):QuestionItem{
-
-            viewModelScope.launch{
-                questionbyId = repository.getQuestionsbyid(questionId)
-
+    fun getQuestionsById(questionId:Int){
+        viewModelScope.launch{
+            viewState = QuestionDetailsViewState.Loading
+            try{
+                val response = repository.getQuestionsbyid(questionId)
+                viewState = QuestionDetailsViewState.Success(response)
+            }catch(exception:Exception){
+                viewState = QuestionDetailsViewState.Error(exception.message)
+                }
             }
-            return questionbyId
-
         }
     }
 
+
+sealed class QuestionDetailsViewState{
+    object None: QuestionDetailsViewState()
+    object Loading:QuestionDetailsViewState()
+    class Success(val question:QuestionItem):QuestionDetailsViewState()
+    class Error(val message: String?):QuestionDetailsViewState()
+}
 

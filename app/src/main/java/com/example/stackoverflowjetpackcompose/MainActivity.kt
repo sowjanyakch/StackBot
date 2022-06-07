@@ -16,7 +16,6 @@ class MainActivity : ComponentActivity() {
 
     private val questionsTitleViewModel by viewModels<QuestionsTitleViewModel>()
 
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {

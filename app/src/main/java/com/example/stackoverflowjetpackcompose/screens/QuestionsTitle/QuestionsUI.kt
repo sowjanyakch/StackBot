@@ -6,7 +6,9 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.material.Scaffold
 import androidx.compose.material.Text
+import androidx.compose.material.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
@@ -16,19 +18,32 @@ import androidx.paging.compose.collectAsLazyPagingItems
 import androidx.paging.compose.itemsIndexed
 import com.example.stackoverflowjetpackcompose.model.Item
 import com.example.stackoverflowjetpackcompose.navigation.ScreensList
+import dev.jeziellago.compose.markdowntext.MarkdownText
 
 @Composable
 
 fun QuestionUI(navController: NavController, questionsViewModel: QuestionsTitleViewModel) {
-
    val getQuestions = questionsViewModel.getQuestions.collectAsLazyPagingItems()
     Log.d("Question UI1", "$getQuestions")
-    ScreenContent(navController,getQuestions)
+
+    Scaffold(
+        topBar = {
+            TopAppBar(title = {
+                Text(
+                    text = "Questions"
+                )
+            },
+            )
+        }
+    ){
+        ScreenContent(navController,getQuestions)
+    }
 }
 
 @Composable
 
 fun ScreenContent(navController:NavController,item:LazyPagingItems<Item>){
+
 
     LazyColumn(modifier = Modifier
         .fillMaxSize()
@@ -39,7 +54,10 @@ fun ScreenContent(navController:NavController,item:LazyPagingItems<Item>){
 itemsIndexed(items = item
     ){index, item ->
 
-        Text(text = item!!.title, modifier = Modifier.clickable{
+   val title = item!!.title
+   val markdownText = MarkdownText(markdown = title).toString()
+
+    Text(text = markdownText, modifier = Modifier.clickable{
             navController.popBackStack()
             navController.navigate(ScreensList.QuestionsDetailScreen.name + "/${item.question_id}")
         })
