@@ -55,7 +55,8 @@ itemsIndexed(items = item
     ){index, item ->
 
    val title = item!!.title
-   val markdownText = MarkdownText(markdown = title).toString()
+   val markdownText =
+       markdown = title).toString()
 
     Text(text = markdownText, modifier = Modifier.clickable{
             navController.popBackStack()
