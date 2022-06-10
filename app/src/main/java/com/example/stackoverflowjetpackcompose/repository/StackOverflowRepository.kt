@@ -3,6 +3,7 @@ package com.example.stackoverflowjetpackcompose.repository
 import androidx.paging.Pager
 import androidx.paging.PagingConfig
 import androidx.paging.PagingData
+import com.example.stackoverflowjetpackcompose.model.Answers.Answers
 import com.example.stackoverflowjetpackcompose.model.Item
 import com.example.stackoverflowjetpackcompose.model.QuestionId.QuestionItem
 import com.example.stackoverflowjetpackcompose.network.StackOverflowAPI
@@ -24,6 +25,10 @@ class Repository @Inject constructor(private val api: StackOverflowAPI){
 
   suspend fun getQuestionsbyid(questionId:Int): QuestionItem {
         return api.getQuestionsbyid(questionId)
+    }
+
+    suspend fun getAnswersbyId(questionId:Int):Answers{
+        return api.getAnswersbyid(questionId)
     }
 
 }

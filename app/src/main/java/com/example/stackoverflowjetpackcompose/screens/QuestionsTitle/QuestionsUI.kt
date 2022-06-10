@@ -1,5 +1,6 @@
 package com.example.stackoverflowjetpackcompose.screens.QuestionsTitle
 
+import android.text.Html
 import android.util.Log
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
@@ -18,7 +19,6 @@ import androidx.paging.compose.collectAsLazyPagingItems
 import androidx.paging.compose.itemsIndexed
 import com.example.stackoverflowjetpackcompose.model.Item
 import com.example.stackoverflowjetpackcompose.navigation.ScreensList
-import dev.jeziellago.compose.markdowntext.MarkdownText
 
 @Composable
 
@@ -54,13 +54,11 @@ fun ScreenContent(navController:NavController,item:LazyPagingItems<Item>){
 itemsIndexed(items = item
     ){index, item ->
 
-   val title = item!!.title
-   val markdownText = MarkdownText(markdown = title).toString()
 
-    Text(text = markdownText, modifier = Modifier.clickable{
-            navController.popBackStack()
-            navController.navigate(ScreensList.QuestionsDetailScreen.name + "/${item.question_id}")
-        })
+     Text(text = Html.fromHtml(item!!.title).toString(),modifier = Modifier.fillMaxSize().clickable{
+       navController.popBackStack()
+       navController.navigate(ScreensList.QuestionsDetailScreen.name + "/${item.question_id}")
+   })
         Text(text = item.answer_count.toString())
 }
     }

@@ -15,12 +15,10 @@ interface StackOverflowAPI
     suspend fun getQuestions(@Query("page") page:Int,
                              @Query("pagesize") pagesize:Int = ITEMS_PER_PAGE): TopQuestions
 
-
     @GET("/2.3/questions/{ids}?order=desc&sort=votes&site=stackoverflow&filter=!nKzQUR30SM")
     suspend fun getQuestionsbyid(@Path("ids") questionId:Int): QuestionItem
 
-
-    @GET("/2.3/answers/{ids}?order=desc&sort=votes&site=stackoverflow&filter=!-.SpydWaEP(z")
+    @GET("2.3/questions/{ids}/answers?order=desc&sort=activity&site=stackoverflow&filter=!nKzQURFm*e")
     suspend fun getAnswersbyid(@Path("ids") questionId:Int):Answers
 
 }

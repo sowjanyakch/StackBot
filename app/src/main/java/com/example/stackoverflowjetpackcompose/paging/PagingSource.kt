@@ -27,7 +27,6 @@ class StackSource(
                     prevKey = if(currentPage == 1) null else currentPage-1,
                     nextKey = if(endOfPaginationReached) null else currentPage+1
                 )
-
             }else{
                LoadResult.Page(
                     data = emptyList(),

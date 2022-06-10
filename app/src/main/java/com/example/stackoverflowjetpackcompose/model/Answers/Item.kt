@@ -2,6 +2,8 @@ package com.example.stackoverflowjetpackcompose.model.Answers
 
 data class Item(
     val answer_id: Int,
+    val body: String,
+    val body_markdown: String,
     val content_license: String,
     val creation_date: Int,
     val is_accepted: Boolean,

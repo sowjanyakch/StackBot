@@ -1,7 +1,5 @@
 package com.example.stackoverflowjetpackcompose.model
 
-
-
 data class Item(
     val accepted_answer_id: Int,
     val answer_count: Int,
