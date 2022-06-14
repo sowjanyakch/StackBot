@@ -1,4 +1,4 @@
-package com.example.stackoverflowjetpackcompose.screens.QuestionsTitle
+package com.example.stackoverflowjetpackcompose.screens.questionsTitle
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope

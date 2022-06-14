@@ -1,9 +1,11 @@
-package com.example.stackoverflowjetpackcompose.screens.QuestionsDetails
+package com.example.stackoverflowjetpackcompose.screens.questionsDetails
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.*
@@ -25,8 +27,7 @@ import com.mukesh.MarkDown
 @Composable
 
 fun QuestionsDetails(questionId:Int, questionsDetailsViewModel: QuestionsDetailsViewModel,
-     onBack:() -> Unit) {
-
+                     onBack:() -> Unit) {
     LaunchedEffect(key1 = questionId, block = {
         questionsDetailsViewModel.getQuestionsById(questionId)
         questionsDetailsViewModel.getAnswersById(questionId)
@@ -64,8 +65,8 @@ fun QuestionsDetails(questionId:Int, questionsDetailsViewModel: QuestionsDetails
             is QuestionDetailsViewState.Success -> {
                 title.value = viewState.question.items.firstOrNull()?.title ?: ""
                 Surface(modifier = Modifier.padding(10.dp)) {
-                    QuestionDetails(question = viewState.question)
-                    AnswerDetails(questionId, questionsDetailsViewModel)
+                        QuestionDetails(question = viewState.question)
+
                 }
             }
             is QuestionDetailsViewState.Error -> {
@@ -75,7 +76,26 @@ fun QuestionsDetails(questionId:Int, questionsDetailsViewModel: QuestionsDetails
                 )
             }
         }
+
+        when(val answerViewState = questionsDetailsViewModel.answersViewState) {
+            is AnswerDetailsViewState.None -> {
+
+            }
+            is AnswerDetailsViewState.Loading -> {
+                Loading()
+            }
+            is AnswerDetailsViewState.Success -> {
+                AnswerBody(answer = answerViewState.answer)
+            }
+            is AnswerDetailsViewState.Error -> {
+                Error(message = answerViewState.message,onRetryClick = {
+                    questionsDetailsViewModel.getAnswersById(questionId)
+                }
+                )
+            }
+        }
     }
+
     }
 
         @Composable
@@ -88,51 +108,31 @@ fun QuestionsDetails(questionId:Int, questionsDetailsViewModel: QuestionsDetails
         @Composable
         fun QuestionDetails(question: QuestionItem) {
             Column(
-                modifier = Modifier.padding(10.dp).verticalScroll(rememberScrollState())
+                modifier = Modifier
+                    .padding(10.dp)
+                    .verticalScroll(rememberScrollState())
             ) {
                val questionBody = question.items.first()?.body
                 MarkDown(text = questionBody)
             }
         }
 
-  @Composable
-   fun AnswerDetails(questionId:Int,questionsDetailsViewModel: QuestionsDetailsViewModel){
-      when(val answerViewState = questionsDetailsViewModel.answersViewState) {
-
-          is AnswerDetailsViewState.None -> {
-
-          }
-          is AnswerDetailsViewState.Loading -> {
-              Loading()
-          }
-          is AnswerDetailsViewState.Success -> {
-              AnswerBody(answer = answerViewState.answer)
-          }
-          is AnswerDetailsViewState.Error -> {
-              Error(message = answerViewState.message,onRetryClick = {
-                  questionsDetailsViewModel.getAnswersById(questionId)
-              }
-              )
-          }
-      }
-   }
-
 @Composable
 
 fun AnswerBody(answer: Answers){
-    Column(modifier = Modifier
+    val answerParameters = answer.items
+   LazyColumn(modifier = Modifier
         .padding(10.dp)
-        .verticalScroll(rememberScrollState())){
-        while(answer.has_more == true) {
-            var i = 0
-            val answerBody = answer.items[i++].body
-            MarkDown(text = answerBody)
-        }
+        ){
+
+       itemsIndexed(items = answerParameters){index, item ->
+           val answerBody = item.body
+          MarkDown(text = answerBody)
+       }
     }
 }
 
      @Composable
-
        fun Error(
             message: String?,
             onRetryClick: () -> Unit

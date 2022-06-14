@@ -1,4 +1,4 @@
-package com.example.stackoverflowjetpackcompose.screens.QuestionsDetails
+package com.example.stackoverflowjetpackcompose.screens.questionsDetails
 
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf

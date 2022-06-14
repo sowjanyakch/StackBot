@@ -1,4 +1,4 @@
-package com.example.stackoverflowjetpackcompose.screens.SplashScreen
+package com.example.stackoverflowjetpackcompose.screens.splashScreen
 
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable

@@ -7,11 +7,11 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
-import com.example.stackoverflowjetpackcompose.screens.QuestionsDetails.QuestionsDetails
-import com.example.stackoverflowjetpackcompose.screens.QuestionsDetails.QuestionsDetailsViewModel
-import com.example.stackoverflowjetpackcompose.screens.QuestionsTitle.QuestionUI
-import com.example.stackoverflowjetpackcompose.screens.QuestionsTitle.QuestionsTitleViewModel
-import com.example.stackoverflowjetpackcompose.screens.SplashScreen.SplashScreen
+import com.example.stackoverflowjetpackcompose.screens.questionsDetails.QuestionsDetails
+import com.example.stackoverflowjetpackcompose.screens.questionsDetails.QuestionsDetailsViewModel
+import com.example.stackoverflowjetpackcompose.screens.questionsTitle.QuestionUI
+import com.example.stackoverflowjetpackcompose.screens.questionsTitle.QuestionsTitleViewModel
+import com.example.stackoverflowjetpackcompose.screens.splashScreen.SplashScreen
 
 @Composable
 

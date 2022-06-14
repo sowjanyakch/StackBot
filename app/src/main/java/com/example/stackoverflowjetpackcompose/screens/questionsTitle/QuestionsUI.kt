@@ -1,4 +1,4 @@
-package com.example.stackoverflowjetpackcompose.screens.QuestionsTitle
+package com.example.stackoverflowjetpackcompose.screens.questionsTitle
 
 import android.text.Html
 import android.util.Log
@@ -53,7 +53,6 @@ fun ScreenContent(navController:NavController,item:LazyPagingItems<Item>){
     ){
 itemsIndexed(items = item
     ){index, item ->
-
 
      Text(text = Html.fromHtml(item!!.title).toString(),modifier = Modifier.fillMaxSize().clickable{
        navController.popBackStack()

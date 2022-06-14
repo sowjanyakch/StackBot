@@ -6,7 +6,7 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.viewModels
 import com.example.stackoverflowjetpackcompose.navigation.QuestionNavigation
-import com.example.stackoverflowjetpackcompose.screens.QuestionsTitle.QuestionsTitleViewModel
+import com.example.stackoverflowjetpackcompose.screens.questionsTitle.QuestionsTitleViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
 
