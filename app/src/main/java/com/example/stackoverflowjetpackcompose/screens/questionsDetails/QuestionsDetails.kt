@@ -1,13 +1,8 @@
 package com.example.stackoverflowjetpackcompose.screens.questionsDetails
 
-import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.itemsIndexed
-import androidx.compose.foundation.rememberScrollState
-import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
@@ -28,10 +23,12 @@ import com.mukesh.MarkDown
 
 fun QuestionsDetails(questionId:Int, questionsDetailsViewModel: QuestionsDetailsViewModel,
                      onBack:() -> Unit) {
+
     LaunchedEffect(key1 = questionId, block = {
         questionsDetailsViewModel.getQuestionsById(questionId)
         questionsDetailsViewModel.getAnswersById(questionId)
     })
+
     val title = remember { mutableStateOf("") }
 
     Scaffold(
@@ -55,48 +52,55 @@ fun QuestionsDetails(questionId:Int, questionsDetailsViewModel: QuestionsDetails
             )
         }
     ) {
-        when (val viewState = questionsDetailsViewModel.viewState) {
-            is QuestionDetailsViewState.None -> {
+        LazyColumn {
+             item {
 
-            }
-            is QuestionDetailsViewState.Loading -> {
-               Loading()
-            }
-            is QuestionDetailsViewState.Success -> {
-                title.value = viewState.question.items.firstOrNull()?.title ?: ""
-                Surface(modifier = Modifier.padding(10.dp)) {
-                        QuestionDetails(question = viewState.question)
+                 QuestionView(questionId, questionsDetailsViewModel, updateTitle = {
+                     title.value = it
+                 } )
+             }
+                     when (val answerViewState = questionsDetailsViewModel.answersViewState) {
+                         is AnswerDetailsViewState.None -> {
 
-                }
-            }
-            is QuestionDetailsViewState.Error -> {
-              Error(message = viewState.message,onRetryClick = {
-                  questionsDetailsViewModel.getQuestionsById(questionId)
-              }
-                )
-            }
-        }
+                         }
+                         is AnswerDetailsViewState.Loading -> {
+                             item{Loading()}
+                         }
+                         is AnswerDetailsViewState.Success -> {
+                            item{
+                                Text(
+                                    modifier = Modifier.padding(10.dp),
+                                    text = "Answers",
+                                    style = MaterialTheme.typography.subtitle2
+                                )
+                            }
 
-        when(val answerViewState = questionsDetailsViewModel.answersViewState) {
-            is AnswerDetailsViewState.None -> {
+                             itemsIndexed(items = answerViewState.answer.items){index,item ->
+                                 Spacer(modifier = Modifier.padding(vertical = 10.dp))
+                                 MarkDown(
+                                     modifier = Modifier.wrapContentHeight(),
+                                     text = item.body.trim()
+                                 )
+                                 Divider(thickness = 2.dp)
+                             }
 
-            }
-            is AnswerDetailsViewState.Loading -> {
-                Loading()
-            }
-            is AnswerDetailsViewState.Success -> {
-                AnswerBody(answer = answerViewState.answer)
-            }
-            is AnswerDetailsViewState.Error -> {
-                Error(message = answerViewState.message,onRetryClick = {
-                    questionsDetailsViewModel.getAnswersById(questionId)
-                }
-                )
-            }
-        }
-    }
+                         }
+                         is AnswerDetailsViewState.Error -> {
 
-    }
+                             item{
+                                 Error(message = answerViewState.message,
+                                         onRetryClick = {
+                                                     questionsDetailsViewModel.getAnswersById(questionId)
+                                          }
+                                 )
+                             }
+                         }
+                     }
+                 }
+                  }
+                  }
+
+
 
         @Composable
         fun Loading() {
@@ -110,12 +114,43 @@ fun QuestionsDetails(questionId:Int, questionsDetailsViewModel: QuestionsDetails
             Column(
                 modifier = Modifier
                     .padding(10.dp)
-                    .verticalScroll(rememberScrollState())
             ) {
                val questionBody = question.items.first()?.body
                 MarkDown(text = questionBody)
             }
         }
+
+       @Composable
+
+       fun QuestionView(
+           questionId:Int,
+           questionsDetailsViewModel:QuestionsDetailsViewModel,
+           updateTitle:(title:String) ->Unit
+       ){
+           when (val viewState = questionsDetailsViewModel.viewState) {
+
+               is QuestionDetailsViewState.None -> {
+
+               }
+               is QuestionDetailsViewState.Loading -> {
+                   Loading()
+               }
+               is QuestionDetailsViewState.Success -> {
+
+                   updateTitle.invoke(viewState.question.items.firstOrNull()?.title ?: "")
+                   Surface(modifier = Modifier.padding(10.dp)) {
+                       QuestionDetails(question = viewState.question)
+                   }
+               }
+               is QuestionDetailsViewState.Error -> {
+                   Error(message = viewState.message, onRetryClick = {
+                       questionsDetailsViewModel.getQuestionsById(questionId)
+                   }
+                   )
+               }
+
+           }
+       }
 
 @Composable
 
@@ -124,7 +159,6 @@ fun AnswerBody(answer: Answers){
    LazyColumn(modifier = Modifier
         .padding(10.dp)
         ){
-
        itemsIndexed(items = answerParameters){index, item ->
            val answerBody = item.body
           MarkDown(text = answerBody)

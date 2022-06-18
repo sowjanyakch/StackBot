@@ -56,7 +56,7 @@ itemsIndexed(items = item
 
      Text(text = Html.fromHtml(item!!.title).toString(),modifier = Modifier.fillMaxSize().clickable{
        navController.popBackStack()
-       navController.navigate(ScreensList.QuestionsDetailScreen.name + "/${item.question_id}")
+       navController.navigate(ScreensList.QuestionsDetailScreen.name + "/${item.question_id}" + "/${item.answer_count}")
    })
         Text(text = item.answer_count.toString())
 }

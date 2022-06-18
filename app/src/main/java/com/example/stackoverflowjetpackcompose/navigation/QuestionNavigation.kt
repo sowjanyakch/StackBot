@@ -29,9 +29,11 @@ questionsDetailsViewModel: QuestionsDetailsViewModel = hiltViewModel()){
         }
         val route = ScreensList.QuestionsDetailScreen.name
         composable("$route/{question_id}",
-            arguments= listOf(navArgument(name = "question_id"){
+            arguments= listOf(
+                navArgument(name = "question_id"){
                 type = NavType.IntType
-            })){
+            }
+            )){
             navBack ->
 
             navBack.arguments?.getInt("question_id")?.let{ questionId ->

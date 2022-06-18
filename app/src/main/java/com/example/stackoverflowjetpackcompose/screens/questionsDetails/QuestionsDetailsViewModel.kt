@@ -22,7 +22,10 @@ class QuestionsDetailsViewModel @Inject constructor (private val repository: Rep
     var answersViewState by mutableStateOf<AnswerDetailsViewState>(AnswerDetailsViewState.None)
         private set
 
-    fun getQuestionsById(questionId:Int){
+
+
+
+  fun getQuestionsById(questionId:Int){
         viewModelScope.launch{
             viewState = QuestionDetailsViewState.Loading
             try{
