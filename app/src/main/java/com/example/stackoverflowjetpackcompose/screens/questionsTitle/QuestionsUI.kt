@@ -39,7 +39,7 @@ fun QuestionUI(navController: NavController, questionsViewModel: QuestionsTitleV
         },
 
         bottomBar = {
-            BottomMenu()
+            BottomMenu(navController = navController)
 
         }
     ){

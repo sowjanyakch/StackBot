@@ -14,6 +14,8 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavController
+import com.example.stackoverflowjetpackcompose.components.BottomMenu
 import com.example.stackoverflowjetpackcompose.model.Answers.Answers
 import com.example.stackoverflowjetpackcompose.model.QuestionId.QuestionItem
 import com.mukesh.MarkDown
@@ -21,7 +23,7 @@ import com.mukesh.MarkDown
 
 @Composable
 
-fun QuestionsDetails(questionId:Int, questionsDetailsViewModel: QuestionsDetailsViewModel,
+fun QuestionsDetails(navController: NavController, questionId:Int, questionsDetailsViewModel: QuestionsDetailsViewModel,
                      onBack:() -> Unit) {
 
     LaunchedEffect(key1 = questionId, block = {
@@ -50,7 +52,12 @@ fun QuestionsDetails(questionId:Int, questionsDetailsViewModel: QuestionsDetails
                     }
                 }
             )
+        },
+        
+        bottomBar = {
+            BottomMenu(navController = navController)
         }
+
     ) {
         LazyColumn {
              item {
@@ -74,7 +81,6 @@ fun QuestionsDetails(questionId:Int, questionsDetailsViewModel: QuestionsDetails
                                     style = MaterialTheme.typography.subtitle2
                                 )
                             }
-
                              itemsIndexed(items = answerViewState.answer.items){index,item ->
                                  Spacer(modifier = Modifier.padding(vertical = 10.dp))
                                  MarkDown(

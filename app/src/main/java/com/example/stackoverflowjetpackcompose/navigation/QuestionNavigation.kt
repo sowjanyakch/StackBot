@@ -7,6 +7,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
+import com.example.stackoverflowjetpackcompose.model.BottomMenuBar
 import com.example.stackoverflowjetpackcompose.screens.questionsDetails.QuestionsDetails
 import com.example.stackoverflowjetpackcompose.screens.questionsDetails.QuestionsDetailsViewModel
 import com.example.stackoverflowjetpackcompose.screens.questionsTitle.QuestionUI
@@ -25,10 +26,12 @@ questionsDetailsViewModel: QuestionsDetailsViewModel = hiltViewModel()){
         composable(ScreensList.SplashScreen.name){
             SplashScreen(navController = navController)
         }
-        composable(ScreensList.QuestionsUI.name){
+
+        composable(BottomMenuBar.Home.route){
             QuestionUI(navController,questionsTitleViewModel)
         }
-        composable(ScreensList.SearchScreen.name){
+
+        composable(BottomMenuBar.Search.route){
             SearchScreen(navController)
         }
         val route = ScreensList.QuestionsDetailScreen.name
@@ -41,10 +44,10 @@ questionsDetailsViewModel: QuestionsDetailsViewModel = hiltViewModel()){
             navBack ->
 
             navBack.arguments?.getInt("question_id")?.let{ questionId ->
-                QuestionsDetails(questionId, questionsDetailsViewModel = questionsDetailsViewModel,
+                QuestionsDetails(navController = navController,questionId, questionsDetailsViewModel = questionsDetailsViewModel,
                 onBack = {
                     navController.popBackStack()
-                    navController.navigate(ScreensList.QuestionsUI.name )
+                    navController.navigate(BottomMenuBar.Home.route )
                 }
                     )
             }

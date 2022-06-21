@@ -4,7 +4,7 @@ import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.navigation.NavController
-import com.example.stackoverflowjetpackcompose.navigation.ScreensList
+import com.example.stackoverflowjetpackcompose.model.BottomMenuBar
 import kotlinx.coroutines.delay
 
 @Composable
@@ -13,6 +13,6 @@ fun SplashScreen(navController: NavController){
     LaunchedEffect(Unit){
         delay(2000)
         navController.popBackStack()
-        navController.navigate(ScreensList.QuestionsUI.name)
+        navController.navigate(BottomMenuBar.Home.route)
     }
 }
