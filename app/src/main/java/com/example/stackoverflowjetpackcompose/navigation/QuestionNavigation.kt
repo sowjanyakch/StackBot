@@ -11,6 +11,7 @@ import com.example.stackoverflowjetpackcompose.screens.questionsDetails.Question
 import com.example.stackoverflowjetpackcompose.screens.questionsDetails.QuestionsDetailsViewModel
 import com.example.stackoverflowjetpackcompose.screens.questionsTitle.QuestionUI
 import com.example.stackoverflowjetpackcompose.screens.questionsTitle.QuestionsTitleViewModel
+import com.example.stackoverflowjetpackcompose.screens.search.SearchScreen
 import com.example.stackoverflowjetpackcompose.screens.splashScreen.SplashScreen
 
 @Composable
@@ -26,6 +27,9 @@ questionsDetailsViewModel: QuestionsDetailsViewModel = hiltViewModel()){
         }
         composable(ScreensList.QuestionsUI.name){
             QuestionUI(navController,questionsTitleViewModel)
+        }
+        composable(ScreensList.SearchScreen.name){
+            SearchScreen(navController)
         }
         val route = ScreensList.QuestionsDetailScreen.name
         composable("$route/{question_id}",

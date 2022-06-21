@@ -18,12 +18,8 @@ class QuestionsDetailsViewModel @Inject constructor (private val repository: Rep
     var viewState by mutableStateOf<QuestionDetailsViewState>(QuestionDetailsViewState.None)
     private set
 
-
     var answersViewState by mutableStateOf<AnswerDetailsViewState>(AnswerDetailsViewState.None)
         private set
-
-
-
 
   fun getQuestionsById(questionId:Int){
         viewModelScope.launch{

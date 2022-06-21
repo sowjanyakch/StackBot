@@ -17,6 +17,7 @@ import androidx.navigation.NavController
 import androidx.paging.compose.LazyPagingItems
 import androidx.paging.compose.collectAsLazyPagingItems
 import androidx.paging.compose.itemsIndexed
+import com.example.stackoverflowjetpackcompose.components.BottomMenu
 import com.example.stackoverflowjetpackcompose.model.Item
 import com.example.stackoverflowjetpackcompose.navigation.ScreensList
 
@@ -33,7 +34,13 @@ fun QuestionUI(navController: NavController, questionsViewModel: QuestionsTitleV
                     text = "Questions"
                 )
             },
+
             )
+        },
+
+        bottomBar = {
+            BottomMenu()
+
         }
     ){
         ScreenContent(navController,getQuestions)
@@ -43,7 +50,6 @@ fun QuestionUI(navController: NavController, questionsViewModel: QuestionsTitleV
 @Composable
 
 fun ScreenContent(navController:NavController,item:LazyPagingItems<Item>){
-
 
     LazyColumn(modifier = Modifier
         .fillMaxSize()
@@ -56,7 +62,7 @@ itemsIndexed(items = item
 
      Text(text = Html.fromHtml(item!!.title).toString(),modifier = Modifier.fillMaxSize().clickable{
        navController.popBackStack()
-       navController.navigate(ScreensList.QuestionsDetailScreen.name + "/${item.question_id}" + "/${item.answer_count}")
+       navController.navigate(ScreensList.QuestionsDetailScreen.name + "/${item.question_id}")
    })
         Text(text = item.answer_count.toString())
 }

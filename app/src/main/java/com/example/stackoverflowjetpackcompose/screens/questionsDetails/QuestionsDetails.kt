@@ -97,9 +97,8 @@ fun QuestionsDetails(questionId:Int, questionsDetailsViewModel: QuestionsDetails
                          }
                      }
                  }
-                  }
-                  }
-
+    }
+}
 
 
         @Composable
