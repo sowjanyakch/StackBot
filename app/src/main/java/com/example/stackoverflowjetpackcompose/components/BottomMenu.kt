@@ -17,7 +17,7 @@ import com.example.stackoverflowjetpackcompose.model.BottomMenuBar
 fun BottomMenu(navController: NavController){
     val items = listOf(
         BottomMenuBar.Home,
-        BottomMenuBar.Search
+        BottomMenuBar.Explore
     )
     val navBackStackEntry by navController.currentBackStackEntryAsState()
     val currentDestination = navBackStackEntry?.destination?.route

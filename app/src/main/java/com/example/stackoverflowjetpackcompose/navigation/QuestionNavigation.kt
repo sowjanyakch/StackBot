@@ -12,13 +12,15 @@ import com.example.stackoverflowjetpackcompose.screens.questionsDetails.Question
 import com.example.stackoverflowjetpackcompose.screens.questionsDetails.QuestionsDetailsViewModel
 import com.example.stackoverflowjetpackcompose.screens.questionsTitle.QuestionUI
 import com.example.stackoverflowjetpackcompose.screens.questionsTitle.QuestionsTitleViewModel
-import com.example.stackoverflowjetpackcompose.screens.search.SearchScreen
+import com.example.stackoverflowjetpackcompose.screens.search.ExploreScreen
+import com.example.stackoverflowjetpackcompose.screens.search.ExploreScreenViewModel
 import com.example.stackoverflowjetpackcompose.screens.splashScreen.SplashScreen
 
 @Composable
 
 fun QuestionNavigation(questionsTitleViewModel: QuestionsTitleViewModel = hiltViewModel(),
-questionsDetailsViewModel: QuestionsDetailsViewModel = hiltViewModel()){
+questionsDetailsViewModel: QuestionsDetailsViewModel = hiltViewModel(),
+exploreScreenViewModel: ExploreScreenViewModel = hiltViewModel()){
 
     val navController = rememberNavController()
     NavHost(navController = navController, startDestination = ScreensList.SplashScreen.name) {
@@ -31,8 +33,8 @@ questionsDetailsViewModel: QuestionsDetailsViewModel = hiltViewModel()){
             QuestionUI(navController,questionsTitleViewModel)
         }
 
-        composable(BottomMenuBar.Search.route){
-            SearchScreen(navController)
+        composable(BottomMenuBar.Explore.route){
+           ExploreScreen(navController, exploreScreenViewModel = exploreScreenViewModel)
         }
         val route = ScreensList.QuestionsDetailScreen.name
         composable("$route/{question_id}",
