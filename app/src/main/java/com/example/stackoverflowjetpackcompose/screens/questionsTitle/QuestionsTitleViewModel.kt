@@ -32,7 +32,7 @@ class QuestionsTitleViewModel @Inject constructor (private val repository:Reposi
         viewModelScope.launch {
             repository.getQuestions(tagged.value).cachedIn(viewModelScope).collect {
                 _questions.value = it
-                Log.d("questions_value", "$questions.value")
+                Log.d("questions_value", "$_questions.value")
             }
 
         }
@@ -40,6 +40,7 @@ class QuestionsTitleViewModel @Inject constructor (private val repository:Reposi
 
     fun updateTag(newtag:String){
         _tagged.value = newtag
+        Log.d("tag name","$_tagged.value")
         fetchQuestions()
     }
 

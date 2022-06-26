@@ -1,5 +1,6 @@
 package com.example.stackoverflowjetpackcompose.screens.search
 
+import android.util.Log
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
@@ -71,7 +72,8 @@ fun Chip(navController: NavController, tagName: String,questionsTitleViewModel: 
                     .padding(8.dp)
                     .clickable(onClick = {
                         questionsTitleViewModel.updateTag(tagName)
-                        navController.popBackStack()
+                        Log.d("tag name", "$tagName")
+                        //navController.popBackStack()
                         navController.navigate(BottomMenuBar.Home.route)
                     })
             )
