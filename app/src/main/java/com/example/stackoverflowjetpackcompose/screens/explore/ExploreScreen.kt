@@ -45,7 +45,7 @@ fun ExploreScreen(navController:NavController,questionsTitleViewModel: Questions
                FlowRow(crossAxisSpacing = 10.dp){
                 for(items in tags){
                     val tagName = items.name
-                    Chip(navController,tagName,questionsTitleViewModel)
+                    Chip(navController= navController,tagName,questionsTitleViewModel)
                 }
             }
         }
