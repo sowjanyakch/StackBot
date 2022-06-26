@@ -16,8 +16,9 @@ import javax.inject.Inject
 @HiltViewModel
 class QuestionsTitleViewModel @Inject constructor (private val repository:Repository) : ViewModel() {
 
-    private val _questions: MutableStateFlow<PagingData<Item>> = MutableStateFlow(PagingData.empty())
-    val questions = _questions
+     val _questions: MutableStateFlow<PagingData<Item>> = MutableStateFlow(PagingData.empty())
+   val questions = _questions
+
 
     private val _tagged = MutableStateFlow<String>("android")
     val tagged = _tagged
