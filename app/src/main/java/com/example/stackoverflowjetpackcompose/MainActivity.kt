@@ -19,7 +19,8 @@ class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
-            Log.d("Navigation","Call to Question Navigation")
+
+            Log.d("Question Navigation","Question Navigation call" )
            QuestionNavigation(questionsTitleViewModel)
         }
     }
