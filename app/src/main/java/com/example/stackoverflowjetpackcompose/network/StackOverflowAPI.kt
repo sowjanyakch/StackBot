@@ -27,10 +27,10 @@ interface StackOverflowAPI
     @GET("/2.3/tags?order=desc&sort=popular&site=stackoverflow")
     suspend fun popularTags(): Tag
 
-    @GET("/2.3/search?order=desc&sort=activity&site=stackoverflow&filter=!6VvPDzPyzuCbL")
+    @GET("/2.3/search/advanced?order=desc&sort=activity&site=stackoverflow&filter=!6VvPDzPyzuCbL")
     suspend fun searchQuestion(@Query("page") page:Int,
                                @Query("pagesize") pagesize:Int = ITEMS_PER_PAGE,
-                               @Query ("intitle") intitle:String): Search
+                               @Query ("q") q:String): Search
 
 
 

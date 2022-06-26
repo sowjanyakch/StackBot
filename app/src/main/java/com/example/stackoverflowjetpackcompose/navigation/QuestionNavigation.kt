@@ -35,6 +35,7 @@ exploreScreenViewModel: ExploreScreenViewModel = hiltViewModel(),
 
         composable(BottomMenuBar.Home.route){
             QuestionUI(navController,questionsTitleViewModel)
+
         }
 
         composable(BottomMenuBar.Explore.route){

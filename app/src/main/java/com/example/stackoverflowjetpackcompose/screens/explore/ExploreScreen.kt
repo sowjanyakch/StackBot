@@ -88,9 +88,11 @@ fun Chip(navController: NavController, tagName: String,questionsTitleViewModel: 
         Surface(
             modifier = Modifier
                 .padding(8.dp)
-                .fillMaxWidth() ,
-
-
+                .fillMaxWidth().clickable{
+                    navController.popBackStack()
+                    navController.navigate(ScreensList.SearchScreen.name)
+                } ,
+            
             border = BorderStroke(width = 0.5.dp, color = Color.LightGray),
             contentColor = Color.LightGray,
             elevation = 10.dp,
@@ -103,10 +105,7 @@ fun Chip(navController: NavController, tagName: String,questionsTitleViewModel: 
             {
                 Icon(imageVector = Icons.Outlined.Search, contentDescription = "Search Icon")
                 Text(
-                    modifier = Modifier.padding(start = 20.dp).clickable{
-                        navController.popBackStack()
-                        navController.navigate(ScreensList.SearchScreen.name)
-                    },
+                    modifier = Modifier.padding(start = 20.dp),
                     text = "Search here",
                     fontSize = 18.sp,
                     color = Color.LightGray
