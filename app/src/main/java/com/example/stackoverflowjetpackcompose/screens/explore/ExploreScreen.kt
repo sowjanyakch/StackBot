@@ -27,6 +27,7 @@ fun ExploreScreen(navController:NavController,questionsTitleViewModel: Questions
 
     val tags = exploreScreenViewModel.getTags
 
+
     Scaffold(
         bottomBar = {
                 BottomMenu(navController = navController)
