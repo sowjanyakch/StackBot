@@ -8,20 +8,24 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
 import com.example.stackoverflowjetpackcompose.model.BottomMenuBar
+import com.example.stackoverflowjetpackcompose.screens.explore.ExploreScreenViewModel
 import com.example.stackoverflowjetpackcompose.screens.questionsDetails.QuestionsDetails
 import com.example.stackoverflowjetpackcompose.screens.questionsDetails.QuestionsDetailsViewModel
 import com.example.stackoverflowjetpackcompose.screens.questionsTitle.QuestionUI
 import com.example.stackoverflowjetpackcompose.screens.questionsTitle.QuestionsTitleViewModel
 import com.example.stackoverflowjetpackcompose.screens.search.ExploreScreen
-import com.example.stackoverflowjetpackcompose.screens.search.ExploreScreenViewModel
+import com.example.stackoverflowjetpackcompose.screens.search.SearchScreen
+import com.example.stackoverflowjetpackcompose.screens.search.SearchViewModel
 import com.example.stackoverflowjetpackcompose.screens.splashScreen.SplashScreen
 
 @Composable
 
 fun QuestionNavigation(questionsTitleViewModel: QuestionsTitleViewModel = hiltViewModel(),
 questionsDetailsViewModel: QuestionsDetailsViewModel = hiltViewModel(),
-exploreScreenViewModel: ExploreScreenViewModel = hiltViewModel()){
+exploreScreenViewModel: ExploreScreenViewModel = hiltViewModel(),
+                       searchViewModel: SearchViewModel = hiltViewModel()
 
+){
     val navController = rememberNavController()
     NavHost(navController = navController, startDestination = ScreensList.SplashScreen.name) {
 
@@ -34,7 +38,7 @@ exploreScreenViewModel: ExploreScreenViewModel = hiltViewModel()){
         }
 
         composable(BottomMenuBar.Explore.route){
-           ExploreScreen(navController, exploreScreenViewModel = exploreScreenViewModel)
+           ExploreScreen(navController, questionsTitleViewModel, exploreScreenViewModel = exploreScreenViewModel)
         }
         val route = ScreensList.QuestionsDetailScreen.name
         composable("$route/{question_id}",
@@ -44,16 +48,21 @@ exploreScreenViewModel: ExploreScreenViewModel = hiltViewModel()){
             }
             )){
             navBack ->
-
             navBack.arguments?.getInt("question_id")?.let{ questionId ->
                 QuestionsDetails(navController = navController,questionId, questionsDetailsViewModel = questionsDetailsViewModel,
                 onBack = {
                     navController.popBackStack()
-                    navController.navigate(BottomMenuBar.Home.route )
+                    navController.navigate(BottomMenuBar.Home.route)
                 }
                     )
             }
         }
+
+        composable(ScreensList.SearchScreen.name){
+            SearchScreen(navController,searchViewModel)
+
+        }
+
     }
 }
 

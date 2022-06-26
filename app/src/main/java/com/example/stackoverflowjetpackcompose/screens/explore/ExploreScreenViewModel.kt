@@ -1,4 +1,4 @@
-package com.example.stackoverflowjetpackcompose.screens.search
+package com.example.stackoverflowjetpackcompose.screens.explore
 
 import android.util.Log
 import androidx.compose.runtime.getValue
@@ -28,7 +28,6 @@ class ExploreScreenViewModel @Inject constructor (private val repository: Reposi
       }catch(e:Exception){
         Log.d("Error",e.toString())
       }
-
     }
   }
 

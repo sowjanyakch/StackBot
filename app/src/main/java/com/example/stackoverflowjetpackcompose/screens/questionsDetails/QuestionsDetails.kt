@@ -1,5 +1,6 @@
 package com.example.stackoverflowjetpackcompose.screens.questionsDetails
 
+import android.text.Html
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.itemsIndexed
@@ -37,7 +38,7 @@ fun QuestionsDetails(navController: NavController, questionId:Int, questionsDeta
         topBar = {
             TopAppBar(title = {
                 Text(
-                    text = title.value,
+                    text = Html.fromHtml(title.value).toString(),
                     maxLines = 1,
                     overflow = TextOverflow.Ellipsis
                 )

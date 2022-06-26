@@ -16,12 +16,14 @@ import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import com.example.stackoverflowjetpackcompose.components.BottomMenu
 import com.example.stackoverflowjetpackcompose.model.BottomMenuBar
-import com.example.stackoverflowjetpackcompose.model.Tags.Item
+import com.example.stackoverflowjetpackcompose.navigation.ScreensList
+import com.example.stackoverflowjetpackcompose.screens.explore.ExploreScreenViewModel
+import com.example.stackoverflowjetpackcompose.screens.questionsTitle.QuestionsTitleViewModel
 import com.google.accompanist.flowlayout.FlowRow
 
 @Composable
 
-fun ExploreScreen(navController:NavController,exploreScreenViewModel: ExploreScreenViewModel){
+fun ExploreScreen(navController:NavController,questionsTitleViewModel: QuestionsTitleViewModel,exploreScreenViewModel: ExploreScreenViewModel){
 
     val tags = exploreScreenViewModel.getTags
 
@@ -42,19 +44,16 @@ fun ExploreScreen(navController:NavController,exploreScreenViewModel: ExploreScr
                FlowRow(crossAxisSpacing = 10.dp){
                 for(items in tags){
                     val tagName = items.name
-                    Chip(navController,tagName)
+                    Chip(navController,tagName,questionsTitleViewModel)
                 }
             }
-
         }
     }
-
   }
 
 
-
 @Composable
-fun Chip(navController: NavController, tagName: String) {
+fun Chip(navController: NavController, tagName: String,questionsTitleViewModel: QuestionsTitleViewModel) {
     Surface(
         modifier = Modifier.padding(end = 8.dp),
         shape = MaterialTheme.shapes.medium,
@@ -70,6 +69,8 @@ fun Chip(navController: NavController, tagName: String) {
                 modifier = Modifier
                     .padding(8.dp)
                     .clickable(onClick = {
+                        questionsTitleViewModel.updateTag(tagName)
+                        navController.popBackStack()
                         navController.navigate(BottomMenuBar.Home.route)
                     })
             )
@@ -84,7 +85,9 @@ fun Chip(navController: NavController, tagName: String) {
         Surface(
             modifier = Modifier
                 .padding(8.dp)
-                .fillMaxWidth(),
+                .fillMaxWidth() ,
+
+
             border = BorderStroke(width = 0.5.dp, color = Color.LightGray),
             contentColor = Color.LightGray,
             elevation = 10.dp,
@@ -93,15 +96,15 @@ fun Chip(navController: NavController, tagName: String) {
 
             Row(modifier = Modifier
                 .padding(10.dp)
-                .clickable {
-
-
-                })
+                )
             {
                 Icon(imageVector = Icons.Outlined.Search, contentDescription = "Search Icon")
                 Text(
-                    modifier = Modifier.padding(start = 20.dp),
-                    text = "Search Tags",
+                    modifier = Modifier.padding(start = 20.dp).clickable{
+                        navController.popBackStack()
+                        navController.navigate(ScreensList.SearchScreen.name)
+                    },
+                    text = "Search here",
                     fontSize = 18.sp,
                     color = Color.LightGray
                 )
@@ -109,12 +112,7 @@ fun Chip(navController: NavController, tagName: String) {
         }
     }
 
-@Composable
 
-fun TagsDisplay(navController:NavController,tags:List<Item>){
-
-
-}
 
 
 

@@ -8,6 +8,7 @@ import com.example.stackoverflowjetpackcompose.model.Item
 import com.example.stackoverflowjetpackcompose.model.QuestionId.QuestionItem
 import com.example.stackoverflowjetpackcompose.model.Tags.Tag
 import com.example.stackoverflowjetpackcompose.network.StackOverflowAPI
+import com.example.stackoverflowjetpackcompose.paging.SearchPagingSource
 import com.example.stackoverflowjetpackcompose.paging.StackSource
 import com.example.stackoverflowjetpackcompose.utils.Constants.ITEMS_PER_PAGE
 import kotlinx.coroutines.flow.Flow
@@ -15,11 +16,11 @@ import javax.inject.Inject
 
 class Repository @Inject constructor(private val api: StackOverflowAPI){
 
-    fun getQuestions():Flow<PagingData<Item>>{
+    fun getQuestions(tagged:String):Flow<PagingData<Item>>{
         return Pager(
             config = PagingConfig(pageSize = ITEMS_PER_PAGE),
             pagingSourceFactory = {
-                StackSource(api)
+                StackSource(api,tagged)
             }
         ).flow
     }
@@ -33,8 +34,21 @@ class Repository @Inject constructor(private val api: StackOverflowAPI){
     }
 
     suspend fun populartags(): Tag {
-        return api.populartags()
+        return api.popularTags()
     }
+
+
+
+    fun searchQuestions(intitle:String):Flow<PagingData<com.example.stackoverflowjetpackcompose.model.Search.Item>>{
+        return Pager(
+            config = PagingConfig(pageSize = ITEMS_PER_PAGE),
+            pagingSourceFactory = {
+                SearchPagingSource(api,intitle)
+
+            }
+        ).flow
+    }
+
 
 }
 
