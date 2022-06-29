@@ -15,12 +15,9 @@ class SearchPagingSource(
     }
 
     override suspend fun load(params: LoadParams<Int>): LoadResult<Int, Item> {
-
         val currentPage = params.key?:1
-
         return try
         {
-
             val response = stackOverflowAPI.searchQuestion(currentPage,ITEMS_PER_PAGE,intitle)
             val endOfPagination = response.items.isEmpty()
             if(response.has_more == true){

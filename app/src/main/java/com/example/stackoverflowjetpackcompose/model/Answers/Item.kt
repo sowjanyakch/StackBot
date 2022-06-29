@@ -4,6 +4,8 @@ data class Item(
     val answer_id: Int,
     val body: String,
     val body_markdown: String,
+    val comment_count: Int,
+    val comments: List<Comment>,
     val content_license: String,
     val creation_date: Int,
     val is_accepted: Boolean,

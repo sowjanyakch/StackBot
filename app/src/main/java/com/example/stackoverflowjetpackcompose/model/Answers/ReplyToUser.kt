@@ -1,6 +1,7 @@
-package com.example.stackoverflowjetpackcompose.model.QuestionId
+package com.example.stackoverflowjetpackcompose.model.Answers
 
-data class Owner(
+data class ReplyToUser(
+    val accept_rate: Int,
     val account_id: Int,
     val badge_counts: BadgeCounts,
     val display_name: String,

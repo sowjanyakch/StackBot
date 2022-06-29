@@ -3,7 +3,7 @@ package com.example.stackoverflowjetpackcompose.paging
 import android.util.Log
 import androidx.paging.PagingSource
 import androidx.paging.PagingState
-import com.example.stackoverflowjetpackcompose.model.Item
+import com.example.stackoverflowjetpackcompose.model.Questions.Item
 import com.example.stackoverflowjetpackcompose.network.StackOverflowAPI
 import com.example.stackoverflowjetpackcompose.utils.Constants.ITEMS_PER_PAGE
 

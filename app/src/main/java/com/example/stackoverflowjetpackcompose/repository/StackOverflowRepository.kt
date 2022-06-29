@@ -4,8 +4,8 @@ import androidx.paging.Pager
 import androidx.paging.PagingConfig
 import androidx.paging.PagingData
 import com.example.stackoverflowjetpackcompose.model.Answers.Answers
-import com.example.stackoverflowjetpackcompose.model.Item
 import com.example.stackoverflowjetpackcompose.model.QuestionId.QuestionItem
+import com.example.stackoverflowjetpackcompose.model.Questions.Item
 import com.example.stackoverflowjetpackcompose.model.Tags.Tag
 import com.example.stackoverflowjetpackcompose.network.StackOverflowAPI
 import com.example.stackoverflowjetpackcompose.paging.SearchPagingSource

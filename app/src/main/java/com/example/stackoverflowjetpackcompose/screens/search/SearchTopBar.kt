@@ -1,3 +1,5 @@
+
+
 package com.example.stackoverflowjetpackcompose.screens.search
 
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -6,16 +8,24 @@ import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material.icons.filled.Close
-import androidx.compose.material.icons.filled.Search
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.remember
+import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.alpha
+import androidx.compose.ui.focus.FocusRequester
+import androidx.compose.ui.focus.focusRequester
+import androidx.compose.ui.focus.onFocusChanged
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.unit.dp
 
+@OptIn(ExperimentalComposeUiApi::class)
 @Composable
 fun SearchWidget(
     text:String,
@@ -23,13 +33,26 @@ fun SearchWidget(
     onSearchClick:(String) -> Unit,
     onCloseClick:() ->Unit
 ){
+    val focusRequester = remember{ FocusRequester() }
+
     Surface(modifier = Modifier
         .fillMaxWidth()
         .height(60.dp),
         elevation = AppBarDefaults.TopAppBarElevation,
         color = MaterialTheme.colors.onPrimary
     ){
-        TextField( modifier = Modifier.fillMaxWidth(),
+
+
+        LaunchedEffect(Unit){
+           focusRequester.requestFocus()
+        }
+
+        val KeyboardController = LocalSoftwareKeyboardController.current
+
+
+        TextField( modifier = Modifier.fillMaxWidth().focusRequester (focusRequester).onFocusChanged{
+
+        }  ,
             value = text,
             onValueChange = {onTextChange(it)},
             placeholder = {
@@ -45,10 +68,12 @@ fun SearchWidget(
                 IconButton(
                     modifier = Modifier.alpha(alpha = ContentAlpha.medium),
                     onClick = {
+                        onTextChange("")
+                      onCloseClick()
 
                     }
                 ){
-                    Icon(imageVector = Icons.Default.Search,
+                    Icon(imageVector = Icons.Default.ArrowBack,
                         contentDescription = "Search Icon",
                         tint = Color.Blue)
                 }
@@ -79,7 +104,15 @@ fun SearchWidget(
 
             keyboardActions = KeyboardActions(
                 onSearch = {
-                    onSearchClick(text)
+                    if(text.trim().isNotEmpty()){
+                        onSearchClick(text)
+                        focusRequester.freeFocus()
+                        KeyboardController?.hide()
+
+                    }else{
+                        return@KeyboardActions
+                    }
+
                 }
             ),
 
@@ -87,8 +120,11 @@ fun SearchWidget(
                 focusedIndicatorColor = Color.Transparent,
                 unfocusedIndicatorColor = Color.Transparent,
                 backgroundColor = Color.Transparent,
-                cursorColor = Color.White
+                cursorColor = Color.Blue
             )
         )
+
     }
+
+
 }

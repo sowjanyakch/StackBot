@@ -11,6 +11,7 @@ import androidx.compose.material.Scaffold
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
+import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
@@ -20,6 +21,7 @@ import androidx.paging.compose.itemsIndexed
 import com.example.stackoverflowjetpackcompose.model.Search.Item
 import com.example.stackoverflowjetpackcompose.navigation.ScreensList
 
+@OptIn(ExperimentalComposeUiApi::class)
 @Composable
 
 fun SearchScreen(
@@ -27,8 +29,6 @@ fun SearchScreen(
     searchViewModel: SearchViewModel
 
 ){
-
-
     val searchQuery by searchViewModel.searchQuery
 
     val searchedQuestions = searchViewModel.searchQuestions.collectAsLazyPagingItems()
@@ -42,10 +42,8 @@ fun SearchScreen(
                     searchViewModel.updateSearchQuery(query =it)
 
                 },
-                onSearchClick = {
-
-                    searchViewModel.fetchSearchQuestions(it)
-
+                onSearchClick = { query ->
+                        searchViewModel.fetchSearchQuestions(query)
                 },
                 onCloseClick = {
                     navController.popBackStack()

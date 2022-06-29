@@ -5,6 +5,7 @@ import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.Search
@@ -58,16 +59,15 @@ fun ExploreScreen(navController:NavController,questionsTitleViewModel: Questions
 fun Chip(navController: NavController, tagName: String,questionsTitleViewModel: QuestionsTitleViewModel) {
     Surface(
         modifier = Modifier.padding(end = 8.dp),
-        shape = MaterialTheme.shapes.medium,
-        elevation = 4.dp,
-        color = Color.Blue
+        shape = RoundedCornerShape(12.dp),
+        border = BorderStroke(1.dp, Color.Black),
     ) {
         Row()
          {
             Text(
                 text = tagName,
                 style = MaterialTheme.typography.subtitle1,
-                color = Color.White,
+                color = Color.Black,
                 modifier = Modifier
                     .padding(8.dp)
                     .clickable(onClick = {

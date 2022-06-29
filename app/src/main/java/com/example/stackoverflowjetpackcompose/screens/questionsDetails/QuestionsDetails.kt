@@ -7,18 +7,24 @@ import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
+import androidx.compose.material.icons.outlined.Check
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
+import com.example.stackoverflowjetpackcompose.components.AuthorsDetails
 import com.example.stackoverflowjetpackcompose.components.BottomMenu
-import com.example.stackoverflowjetpackcompose.model.Answers.Answers
+import com.example.stackoverflowjetpackcompose.components.Chip
 import com.example.stackoverflowjetpackcompose.model.QuestionId.QuestionItem
+import com.google.accompanist.flowlayout.FlowRow
 import com.mukesh.MarkDown
 
 
@@ -60,7 +66,7 @@ fun QuestionsDetails(navController: NavController, questionId:Int, questionsDeta
         }
 
     ) {
-        LazyColumn {
+        LazyColumn(modifier = Modifier.padding(8.dp)) {
              item {
 
                  QuestionView(questionId, questionsDetailsViewModel, updateTitle = {
@@ -75,20 +81,43 @@ fun QuestionsDetails(navController: NavController, questionId:Int, questionsDeta
                              item{Loading()}
                          }
                          is AnswerDetailsViewState.Success -> {
-                            item{
-                                Text(
-                                    modifier = Modifier.padding(10.dp),
-                                    text = "Answers",
-                                    style = MaterialTheme.typography.subtitle2
-                                )
-                            }
+
                              itemsIndexed(items = answerViewState.answer.items){index,item ->
-                                 Spacer(modifier = Modifier.padding(vertical = 10.dp))
+
+                                 Row(modifier = Modifier.padding(start = 12.dp,top = 28.dp,bottom = 12.dp)){
+                                     if(item.is_accepted) {
+                                         Icon(
+                                             Icons.Outlined.Check,
+                                             contentDescription = "Answer Accepted",
+                                             tint = Color.Green
+                                         )
+                                     }
+                                         Text(item.score.toString(), modifier = Modifier.padding(end = 5.dp),fontWeight = FontWeight.Medium, fontSize = 18.sp)
+                                         Text("Votes", fontWeight = FontWeight.Medium, modifier = Modifier.padding(bottom = 6.dp),fontSize = 18.sp)
+                                     }
                                  MarkDown(
-                                     modifier = Modifier.wrapContentHeight(),
+                                     modifier = Modifier
+                                         .wrapContentHeight()
+                                         .fillMaxSize(),
                                      text = item.body.trim()
                                  )
-                                 Divider(thickness = 2.dp)
+                                 Row(){
+                                     Spacer(modifier = Modifier.padding(start = 12.dp))
+                                     AuthorsDetails(
+                                         image = item.owner.profile_image,
+                                         displayName = item.owner.display_name ,
+                                         reputation = item.owner.reputation,
+                                         goldBadges = item.owner.badge_counts.gold,
+                                         silverBadges = item.owner.badge_counts.silver,
+                                         bronzeBadges = item.owner.badge_counts.bronze
+                                     )
+
+
+                                 }
+
+                                 Spacer(modifier = Modifier.padding(bottom = 24.dp))
+
+
                              }
 
                          }
@@ -117,13 +146,37 @@ fun QuestionsDetails(navController: NavController, questionId:Int, questionsDeta
 
         @Composable
         fun QuestionDetails(question: QuestionItem) {
-            Column(
-                modifier = Modifier
-                    .padding(10.dp)
-            ) {
-               val questionBody = question.items.first()?.body
-                MarkDown(text = questionBody)
+            Column() {
+                val questionItem = question.items.first()
+               val questionBody = questionItem?.body
+                val authorDetails = questionItem?.owner
+                Text(text = questionItem?.title, style = MaterialTheme.typography.body1, fontSize = 18.sp, fontWeight = FontWeight.Medium, modifier = Modifier.padding(12.dp))
+                MarkDown(modifier = Modifier.fillMaxSize().padding(top = 6.dp),text = questionBody)
+
+                FlowRow(crossAxisSpacing = 10.dp, modifier = Modifier.padding(start = 12.dp, top = 16.dp, bottom = 16.dp)){
+                    for(items in questionItem?.tags)
+                        Chip(items)
+                }
+
+                Row(){
+                    Spacer(modifier = Modifier.padding(start = 16.dp,bottom = 16.dp))
+                    AuthorsDetails(
+                        image = authorDetails.profile_image,
+                        displayName = authorDetails.display_name,
+                        reputation = authorDetails.reputation,
+                        goldBadges = authorDetails.badge_counts.gold ,
+                        silverBadges = authorDetails.badge_counts.silver ,
+                        bronzeBadges = authorDetails.badge_counts.bronze
+                    )
+                }
+
+                Spacer(modifier = Modifier.padding(vertical = 8.dp))
+
+                Text(text = questionItem?.answer_count.toString() + " " + "Answers", style = MaterialTheme.typography.subtitle2,
+                    fontSize = 18.sp, fontWeight = FontWeight.Medium,
+                modifier = Modifier.padding(start = 12.dp, bottom = 24.dp,top = 24.dp))
             }
+
         }
 
        @Composable
@@ -143,8 +196,9 @@ fun QuestionsDetails(navController: NavController, questionId:Int, questionsDeta
                }
                is QuestionDetailsViewState.Success -> {
 
-                   updateTitle.invoke(viewState.question.items.firstOrNull()?.title ?: "")
-                   Surface(modifier = Modifier.padding(10.dp)) {
+                   updateTitle.invoke(viewState.question.items.firstOrNull()?.score.toString() + "   "+ "Votes" )
+
+                   Surface(modifier = Modifier.padding(top = 10.dp)) {
                        QuestionDetails(question = viewState.question)
                    }
                }
@@ -158,19 +212,6 @@ fun QuestionsDetails(navController: NavController, questionId:Int, questionsDeta
            }
        }
 
-@Composable
-
-fun AnswerBody(answer: Answers){
-    val answerParameters = answer.items
-   LazyColumn(modifier = Modifier
-        .padding(10.dp)
-        ){
-       itemsIndexed(items = answerParameters){index, item ->
-           val answerBody = item.body
-          MarkDown(text = answerBody)
-       }
-    }
-}
 
      @Composable
        fun Error(

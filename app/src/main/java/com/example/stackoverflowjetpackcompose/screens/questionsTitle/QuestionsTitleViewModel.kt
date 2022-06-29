@@ -5,7 +5,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import androidx.paging.PagingData
 import androidx.paging.cachedIn
-import com.example.stackoverflowjetpackcompose.model.Item
+import com.example.stackoverflowjetpackcompose.model.Questions.Item
 import com.example.stackoverflowjetpackcompose.repository.Repository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -30,7 +30,9 @@ class QuestionsTitleViewModel @Inject constructor (private val repository:Reposi
 
     fun fetchQuestions() {
         viewModelScope.launch {
-            repository.getQuestions(tagged.value).cachedIn(viewModelScope).collect {
+
+            repository.getQuestions(tagged.value).cachedIn(viewModelScope).collect{
+
                 _questions.value = it
                 Log.d("questions_value", "$_questions.value")
             }
