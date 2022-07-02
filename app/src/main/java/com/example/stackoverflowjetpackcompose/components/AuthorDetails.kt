@@ -3,12 +3,15 @@ package com.example.stackoverflowjetpackcompose.components
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.material.Icon
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.stackoverflowjetpackcompose.ui.theme.Bronze
@@ -50,4 +53,19 @@ fun Dot(color: Color){
             .background(color)
             .size(5.dp)
     )
+}
+
+@Composable
+
+fun AnswerCount(modifier:Modifier,
+                imageVector: ImageVector,
+                answerCount:String){
+
+    Row(modifier = modifier.padding(end = 3.dp),
+        horizontalArrangement = Arrangement.End
+    ){
+        Icon(imageVector = imageVector, contentDescription = "Answer Icon")
+        Spacer(modifier = Modifier.padding(end = 4.dp))
+        Text(text = answerCount, textAlign = TextAlign.End )
+    }
 }

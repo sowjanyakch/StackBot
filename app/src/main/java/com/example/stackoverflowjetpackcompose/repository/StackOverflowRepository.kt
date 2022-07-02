@@ -16,11 +16,11 @@ import javax.inject.Inject
 
 class Repository @Inject constructor(private val api: StackOverflowAPI){
 
-    fun getQuestions(tagged:String):Flow<PagingData<Item>>{
+    fun getQuestions(sort:String,tagged:String):Flow<PagingData<Item>>{
         return Pager(
             config = PagingConfig(pageSize = ITEMS_PER_PAGE),
             pagingSourceFactory = {
-                StackSource(api,tagged)
+                StackSource(api,sort,tagged)
             }
         ).flow
     }
@@ -39,11 +39,11 @@ class Repository @Inject constructor(private val api: StackOverflowAPI){
 
 
 
-    fun searchQuestions(intitle:String):Flow<PagingData<com.example.stackoverflowjetpackcompose.model.Search.Item>>{
+    fun searchQuestions(sort:String,intitle:String):Flow<PagingData<com.example.stackoverflowjetpackcompose.model.Search.Item>>{
         return Pager(
             config = PagingConfig(pageSize = ITEMS_PER_PAGE),
             pagingSourceFactory = {
-                SearchPagingSource(api,intitle)
+                SearchPagingSource(api,sort,intitle)
 
             }
         ).flow

@@ -41,8 +41,6 @@ fun SearchWidget(
         elevation = AppBarDefaults.TopAppBarElevation,
         color = MaterialTheme.colors.onPrimary
     ){
-
-
         LaunchedEffect(Unit){
            focusRequester.requestFocus()
         }

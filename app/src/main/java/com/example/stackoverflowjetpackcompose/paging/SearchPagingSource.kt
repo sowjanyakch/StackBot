@@ -8,6 +8,7 @@ import com.example.stackoverflowjetpackcompose.utils.Constants.ITEMS_PER_PAGE
 
 class SearchPagingSource(
     private val stackOverflowAPI: StackOverflowAPI,
+    private val sort:String,
     private val intitle:String
 ): PagingSource<Int, Item>(){
     override fun getRefreshKey(state: PagingState<Int, Item>): Int? {
@@ -18,7 +19,7 @@ class SearchPagingSource(
         val currentPage = params.key?:1
         return try
         {
-            val response = stackOverflowAPI.searchQuestion(currentPage,ITEMS_PER_PAGE,intitle)
+            val response = stackOverflowAPI.searchQuestion(currentPage,ITEMS_PER_PAGE,sort,intitle)
             val endOfPagination = response.items.isEmpty()
             if(response.has_more == true){
                 LoadResult.Page(

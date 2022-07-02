@@ -4,25 +4,20 @@ import android.text.Html
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.material.Icon
-import androidx.compose.material.Scaffold
 import androidx.compose.material.Text
-import androidx.compose.material.TopAppBar
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.QuestionAnswer
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import androidx.paging.compose.LazyPagingItems
 import androidx.paging.compose.collectAsLazyPagingItems
 import androidx.paging.compose.itemsIndexed
+import com.example.stackoverflowjetpackcompose.components.AnswerCount
 import com.example.stackoverflowjetpackcompose.components.AuthorsDetails
-import com.example.stackoverflowjetpackcompose.components.BottomMenu
 import com.example.stackoverflowjetpackcompose.model.Questions.Item
 import com.example.stackoverflowjetpackcompose.navigation.ScreensList
 
@@ -32,25 +27,9 @@ fun QuestionUI(navController: NavController, questionsTitleViewModel: QuestionsT
 
    val getQuestions = questionsTitleViewModel.questions.collectAsLazyPagingItems()
 
-    Scaffold(
-
-        topBar = {
-            TopAppBar(title = {
-                Text(
-                    text = "Questions"
-                )
-            },
-            )
-        },
-
-        bottomBar = {
-            BottomMenu(navController = navController)
-        },
-
-    ){
           QuestionsTitleDisplay(navController,getQuestions)
     }
-}
+
 
 @Composable
 
@@ -99,20 +78,7 @@ fun QuestionsTitleDisplay(navController: NavController, item: LazyPagingItems<It
     }
 }
 
-@Composable
 
-fun AnswerCount(modifier:Modifier,
-                imageVector: ImageVector,
-                answerCount:String){
-
-    Row(modifier = modifier.padding(end = 3.dp),
-    horizontalArrangement = Arrangement.End
-    ){
-        Icon(imageVector = imageVector, contentDescription = "Answer Icon")
-        Spacer(modifier = Modifier.padding(end = 4.dp))
-        Text(text = answerCount, textAlign = TextAlign.End )
-    }
-}
 
 
 

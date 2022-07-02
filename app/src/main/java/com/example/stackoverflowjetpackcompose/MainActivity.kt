@@ -5,8 +5,10 @@ import android.util.Log
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.viewModels
+import androidx.compose.ui.graphics.Color
 import com.example.stackoverflowjetpackcompose.navigation.QuestionNavigation
 import com.example.stackoverflowjetpackcompose.screens.questionsTitle.QuestionsTitleViewModel
+import com.google.accompanist.systemuicontroller.rememberSystemUiController
 import dagger.hilt.android.AndroidEntryPoint
 
 
@@ -19,7 +21,9 @@ class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
-
+            val systemUiController = rememberSystemUiController()
+            systemUiController.setStatusBarColor(Color.White,darkIcons = true)
+            systemUiController.setNavigationBarColor(Color.White)
             Log.d("Question Navigation","Question Navigation call" )
            QuestionNavigation(questionsTitleViewModel)
         }

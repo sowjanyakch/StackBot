@@ -7,11 +7,12 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
+import com.example.stackoverflowjetpackcompose.Tabs.HomeTabs
+import com.example.stackoverflowjetpackcompose.Tabs.PopularTagsTabs
 import com.example.stackoverflowjetpackcompose.model.BottomMenuBar
 import com.example.stackoverflowjetpackcompose.screens.explore.ExploreScreenViewModel
 import com.example.stackoverflowjetpackcompose.screens.questionsDetails.QuestionsDetails
 import com.example.stackoverflowjetpackcompose.screens.questionsDetails.QuestionsDetailsViewModel
-import com.example.stackoverflowjetpackcompose.screens.questionsTitle.QuestionUI
 import com.example.stackoverflowjetpackcompose.screens.questionsTitle.QuestionsTitleViewModel
 import com.example.stackoverflowjetpackcompose.screens.search.ExploreScreen
 import com.example.stackoverflowjetpackcompose.screens.search.SearchScreen
@@ -34,7 +35,7 @@ exploreScreenViewModel: ExploreScreenViewModel = hiltViewModel(),
         }
 
         composable(BottomMenuBar.Home.route){
-            QuestionUI(navController,questionsTitleViewModel)
+            HomeTabs(navController = navController, questionsTitleViewModel = questionsTitleViewModel )
 
         }
 
@@ -57,6 +58,10 @@ exploreScreenViewModel: ExploreScreenViewModel = hiltViewModel(),
                 }
                     )
             }
+        }
+
+        composable(ScreensList.PopularTagsScreen.name){
+            PopularTagsTabs(navController = navController, questionsTitleViewModel = questionsTitleViewModel )
         }
 
         composable(ScreensList.SearchScreen.name){

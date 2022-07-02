@@ -17,7 +17,6 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import com.example.stackoverflowjetpackcompose.components.BottomMenu
-import com.example.stackoverflowjetpackcompose.model.BottomMenuBar
 import com.example.stackoverflowjetpackcompose.navigation.ScreensList
 import com.example.stackoverflowjetpackcompose.screens.explore.ExploreScreenViewModel
 import com.example.stackoverflowjetpackcompose.screens.questionsTitle.QuestionsTitleViewModel
@@ -71,10 +70,10 @@ fun Chip(navController: NavController, tagName: String,questionsTitleViewModel: 
                 modifier = Modifier
                     .padding(8.dp)
                     .clickable(onClick = {
-                        questionsTitleViewModel.updateTag(tagName)
+                        questionsTitleViewModel.updateTagSort("",tagName)
                         Log.d("tag name", "$tagName")
                         //navController.popBackStack()
-                        navController.navigate(BottomMenuBar.Home.route)
+                        navController.navigate(ScreensList.PopularTagsScreen.name)
                     })
             )
 

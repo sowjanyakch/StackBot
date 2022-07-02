@@ -19,6 +19,8 @@ class QuestionsTitleViewModel @Inject constructor (private val repository:Reposi
      val _questions: MutableStateFlow<PagingData<Item>> = MutableStateFlow(PagingData.empty())
    val questions = _questions
 
+    private val _sort = MutableStateFlow<String>("votes")
+    val sort = _sort
 
     private val _tagged = MutableStateFlow<String>("android")
     val tagged = _tagged
@@ -31,7 +33,7 @@ class QuestionsTitleViewModel @Inject constructor (private val repository:Reposi
     fun fetchQuestions() {
         viewModelScope.launch {
 
-            repository.getQuestions(tagged.value).cachedIn(viewModelScope).collect{
+            repository.getQuestions(sort.value,tagged.value).cachedIn(viewModelScope).collect{
 
                 _questions.value = it
                 Log.d("questions_value", "$_questions.value")
@@ -40,7 +42,8 @@ class QuestionsTitleViewModel @Inject constructor (private val repository:Reposi
         }
     }
 
-    fun updateTag(newtag:String){
+    fun updateTagSort(newSort:String,newtag:String){
+        _sort.value = newSort
         _tagged.value = newtag
         Log.d("tag name","$_tagged.value")
         fetchQuestions()

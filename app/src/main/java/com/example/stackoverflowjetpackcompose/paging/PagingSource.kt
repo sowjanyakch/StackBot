@@ -8,7 +8,7 @@ import com.example.stackoverflowjetpackcompose.network.StackOverflowAPI
 import com.example.stackoverflowjetpackcompose.utils.Constants.ITEMS_PER_PAGE
 
 class StackSource(
-    private val stackOverflowAPI: StackOverflowAPI, private val tagged:String
+    private val stackOverflowAPI: StackOverflowAPI, private val sort:String,private val tagged:String
 ): PagingSource<Int, Item>() {
 
     override fun getRefreshKey(state: PagingState<Int, Item>): Int? {
@@ -21,7 +21,7 @@ class StackSource(
 
         return try
         {
-            val stackResponse = stackOverflowAPI.getQuestions(currentPage, ITEMS_PER_PAGE,tagged)
+            val stackResponse = stackOverflowAPI.getQuestions(currentPage, ITEMS_PER_PAGE,sort,tagged)
             val endOfPaginationReached = stackResponse.items.isEmpty()
             if(stackResponse.has_more == true){
               LoadResult.Page(

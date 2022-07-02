@@ -1,6 +1,6 @@
 package com.example.stackoverflowjetpackcompose.model.Search
 
-data class Owner(
+data class LastEditor(
     val accept_rate: Int,
     val account_id: Int,
     val badge_counts: BadgeCounts,

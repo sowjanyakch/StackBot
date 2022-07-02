@@ -18,6 +18,9 @@ class SearchViewModel @Inject constructor(private val repository: Repository): V
     private val _searchQuery = mutableStateOf("")
     val searchQuery = _searchQuery
 
+    private val _sortSearch = mutableStateOf("activity")
+    val sortSearch = _sortSearch
+
     fun updateSearchQuery(query:String){
         _searchQuery.value = query
     }
@@ -27,12 +30,10 @@ class SearchViewModel @Inject constructor(private val repository: Repository): V
 
     fun fetchSearchQuestions(query:String){
         viewModelScope.launch{
-            repository.searchQuestions(intitle = query).cachedIn(viewModelScope).collect{
+            repository.searchQuestions(sortSearch.value,intitle = query).cachedIn(viewModelScope).collect{
                 _searchQuestions.value = it
             }
         }
     }
-
-
 
 }
