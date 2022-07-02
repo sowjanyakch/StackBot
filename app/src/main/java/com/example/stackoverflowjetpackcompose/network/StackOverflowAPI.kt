@@ -14,9 +14,10 @@ import retrofit2.http.Query
 
 interface StackOverflowAPI
 {
-    @GET("2.3/questions?order=desc&sort=creation&site=stackoverflow&filter=!T1gn2__R7RJ(mj5xFm")
+    @GET("2.3/questions?order=desc&site=stackoverflow&filter=!T1gn2__R7RJ(mj5xFm")
     suspend fun getQuestions(@Query("page") page:Int,
                              @Query("pagesize") pagesize:Int = ITEMS_PER_PAGE,
+                             @Query("sort") sort:String,
                              @Query("tagged") tagged:String,
                              @Query("key") key:String = Key): Questions
 
@@ -33,9 +34,10 @@ interface StackOverflowAPI
         @Query("key") key:String = Key
     ): Tag
 
-    @GET("/2.3/search/advanced?order=desc&sort=activity&site=stackoverflow&filter=!6VvPDzPyzuCbL")
+    @GET("/2.3/search/advanced?order=desc&site=stackoverflow&filter=!6VvPDzPyzuCbL")
     suspend fun searchQuestion(@Query("page") page:Int,
                                @Query("pagesize") pagesize:Int = ITEMS_PER_PAGE,
+                               @Query("sort") sort:String,
                                @Query ("q") q:String,
                                @Query("key") key:String = Key): Search
 
