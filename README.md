@@ -1,6 +1,5 @@
 # StackBot
 
-
 StackBot is a modern Android Client for Stack Overflow built from the ground up using Jetpack Compose. The data is obtained from the Stack Exchange API's.
 
 
