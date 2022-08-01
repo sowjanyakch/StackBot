@@ -12,24 +12,26 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 
-@Composable
-fun Chip( tagName:String) {
+// displays chips with tags
 
-        Surface(
-            modifier = Modifier.padding(end = 8.dp),
-            shape = RoundedCornerShape(12.dp),
-            border = BorderStroke(1.dp, Color.Black),
-        ) {
-            Row(){
-                Text(
-                    text = tagName,
-                    style = MaterialTheme.typography.subtitle1,
-                    color = Color.Black,
-                    modifier = Modifier.padding(8.dp)
-                )
-            }
+@Composable
+fun DisplayChip(tagName: String) {
+
+    Surface(
+        modifier = Modifier.padding(end = 8.dp),
+        shape = RoundedCornerShape(12.dp),
+        border = BorderStroke(1.dp, Color.Black),
+    ) {
+        Row {
+            Text(
+                text = tagName,
+                style = MaterialTheme.typography.subtitle1,
+                color = Color.Black,
+                modifier = Modifier.padding(8.dp)
+            )
         }
-            }
+    }
+}
 
 
 

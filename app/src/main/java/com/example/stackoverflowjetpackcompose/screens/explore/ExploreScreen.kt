@@ -1,6 +1,5 @@
-package com.example.stackoverflowjetpackcompose.screens.search
+package com.example.stackoverflowjetpackcompose.screens.explore
 
-import android.util.Log
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
@@ -16,37 +15,36 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
-import com.example.stackoverflowjetpackcompose.components.BottomMenu
+import com.example.stackoverflowjetpackcompose.components.DisplayBottomMenu
 import com.example.stackoverflowjetpackcompose.navigation.ScreensList
-import com.example.stackoverflowjetpackcompose.screens.explore.ExploreScreenViewModel
 import com.example.stackoverflowjetpackcompose.screens.questionsTitle.QuestionsTitleViewModel
 import com.google.accompanist.flowlayout.FlowRow
 
 @Composable
 
-fun ExploreScreen(navController:NavController,questionsTitleViewModel: QuestionsTitleViewModel,exploreScreenViewModel: ExploreScreenViewModel){
+fun ExploreScreen(navController:NavController, questionsTitleViewModel: QuestionsTitleViewModel, exploreScreenViewModel: ExploreScreenViewModel){
 
     val tags = exploreScreenViewModel.getTags
 
 
     Scaffold(
         bottomBar = {
-                BottomMenu(navController = navController)
+                DisplayBottomMenu(navController = navController)
 
         }
     ) {
 
         Column(modifier = Modifier.padding(12.dp))
         {
-                SearchBar(navController = navController)
-                Spacer(modifier = Modifier.padding(30.dp))
+                DisplaySearchBar(navController = navController)
+                Spacer(modifier = Modifier.padding(40.dp))
                 Text(text = "Popular Tags", style = MaterialTheme.typography.subtitle1, fontWeight = FontWeight.Bold,fontSize = 28.sp, color = Color.Black)
                 Spacer(modifier = Modifier.padding(20.dp))
 
                FlowRow(crossAxisSpacing = 10.dp){
                 for(items in tags){
                     val tagName = items.name
-                    Chip(navController= navController,tagName,questionsTitleViewModel)
+                    DisplayChip(navController= navController,tagName,questionsTitleViewModel)
                 }
             }
         }
@@ -55,7 +53,7 @@ fun ExploreScreen(navController:NavController,questionsTitleViewModel: Questions
 
 
 @Composable
-fun Chip(navController: NavController, tagName: String,questionsTitleViewModel: QuestionsTitleViewModel) {
+fun DisplayChip(navController: NavController, tagName: String, questionsTitleViewModel: QuestionsTitleViewModel) {
     Surface(
         modifier = Modifier.padding(end = 8.dp),
         shape = RoundedCornerShape(12.dp),
@@ -71,7 +69,6 @@ fun Chip(navController: NavController, tagName: String,questionsTitleViewModel: 
                     .padding(8.dp)
                     .clickable(onClick = {
                         questionsTitleViewModel.updateTagSort("",tagName)
-                        Log.d("tag name", "$tagName")
                         //navController.popBackStack()
                         navController.navigate(ScreensList.PopularTagsScreen.name)
                     })
@@ -80,34 +77,33 @@ fun Chip(navController: NavController, tagName: String,questionsTitleViewModel: 
         }
     }
 }
-
+    //
     @Composable
-    fun SearchBar(navController: NavController) {
+    fun DisplaySearchBar(navController: NavController) {
 
         Surface(
             modifier = Modifier
-                .padding(8.dp)
-                .fillMaxWidth().clickable{
-                    navController.popBackStack()
-                    navController.navigate(ScreensList.SearchScreen.name)
-                } ,
-            
+                .fillMaxWidth(),
+            color = Color(0xFFEAEFF2),
             border = BorderStroke(width = 0.5.dp, color = Color.LightGray),
-            contentColor = Color.LightGray,
-            elevation = 10.dp,
+            contentColor = Color.Black,
             shape = CircleShape
         ) {
 
-            Row(modifier = Modifier
-                .padding(10.dp)
+            Row(modifier = Modifier.clickable{
+                    navController.popBackStack()
+                    navController.navigate(ScreensList.SearchScreen.name)
+
+                }
                 )
             {
-                Icon(imageVector = Icons.Outlined.Search, contentDescription = "Search Icon")
+                Icon(imageVector = Icons.Outlined.Search, contentDescription = "Search Icon", tint = Color.Black,
+                    modifier = Modifier.padding(start = 12.dp, top = 12.dp,bottom = 12.dp, end = 6.dp))
                 Text(
-                    modifier = Modifier.padding(start = 20.dp),
+                    modifier = Modifier.padding(start = 12.dp, top = 12.dp,bottom = 12.dp, end = 6.dp),
                     text = "Search here",
                     fontSize = 18.sp,
-                    color = Color.LightGray
+                    color = Color.Black
                 )
             }
         }

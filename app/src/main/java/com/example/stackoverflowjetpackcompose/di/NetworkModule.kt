@@ -33,10 +33,10 @@ object NetworkModule {
     @Provides
     @Singleton
 
-    fun provideHttpClient():OkHttpClient{
+    fun provideHttpClient(): OkHttpClient {
         return OkHttpClient.Builder()
             .readTimeout(15, TimeUnit.SECONDS)
-            .connectTimeout(15,TimeUnit.SECONDS)
+            .connectTimeout(15, TimeUnit.SECONDS)
             .addInterceptor(okHttpLoggingInterceptor)
             .build()
 
@@ -45,7 +45,7 @@ object NetworkModule {
     @Provides
     @Singleton
 
-    fun provideRetrofit(okHttpClient: OkHttpClient):Retrofit{
+    fun provideRetrofit(okHttpClient: OkHttpClient): Retrofit {
         return Retrofit.Builder()
             .baseUrl(BASE_URL)
             .client(okHttpClient)
@@ -56,7 +56,7 @@ object NetworkModule {
     @Provides
     @Singleton
 
-    fun provideStackOverflowAPI(retrofit:Retrofit): StackOverflowAPI{
+    fun provideStackOverflowAPI(retrofit: Retrofit): StackOverflowAPI {
         return retrofit.create(StackOverflowAPI::class.java)
     }
 

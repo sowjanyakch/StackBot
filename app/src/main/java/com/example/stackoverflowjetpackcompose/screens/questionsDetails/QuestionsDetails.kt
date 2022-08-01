@@ -1,6 +1,5 @@
 package com.example.stackoverflowjetpackcompose.screens.questionsDetails
 
-import android.text.Html
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.itemsIndexed
@@ -19,10 +18,10 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.core.text.HtmlCompat
 import androidx.navigation.NavController
-import com.example.stackoverflowjetpackcompose.components.AuthorsDetails
-import com.example.stackoverflowjetpackcompose.components.BottomMenu
-import com.example.stackoverflowjetpackcompose.components.Chip
+import com.example.stackoverflowjetpackcompose.components.DisplayAuthorDetails
+import com.example.stackoverflowjetpackcompose.components.DisplayChip
 import com.example.stackoverflowjetpackcompose.model.QuestionId.QuestionItem
 import com.google.accompanist.flowlayout.FlowRow
 import com.mukesh.MarkDown
@@ -30,21 +29,18 @@ import com.mukesh.MarkDown
 
 @Composable
 
-fun QuestionsDetails(navController: NavController, questionId:Int, questionsDetailsViewModel: QuestionsDetailsViewModel,
-                     onBack:() -> Unit) {
-
+fun DisplayQuestionsDetails(navController: NavController, questionId:Int, questionsDetailsViewModel: QuestionsDetailsViewModel,
+                            onBack:() -> Unit) {
     LaunchedEffect(key1 = questionId, block = {
         questionsDetailsViewModel.getQuestionsById(questionId)
         questionsDetailsViewModel.getAnswersById(questionId)
     })
-
     val title = remember { mutableStateOf("") }
-
     Scaffold(
         topBar = {
             TopAppBar(title = {
                 Text(
-                    text = Html.fromHtml(title.value).toString(),
+                    text = HtmlCompat.fromHtml(title.value, HtmlCompat.FROM_HTML_MODE_LEGACY).toString(),
                     maxLines = 1,
                     overflow = TextOverflow.Ellipsis
                 )
@@ -54,21 +50,17 @@ fun QuestionsDetails(navController: NavController, questionId:Int, questionsDeta
                         Icon(
                             imageVector = Icons.Filled.ArrowBack,
                             contentDescription = "Back",
-                            tint = MaterialTheme.colors.onPrimary
+                            tint = Color.Black
                         )
                     }
-                }
+                },
+                backgroundColor = Color.White
             )
         },
-        
-        bottomBar = {
-            BottomMenu(navController = navController)
-        }
 
     ) {
         LazyColumn(modifier = Modifier.padding(8.dp)) {
              item {
-
                  QuestionView(questionId, questionsDetailsViewModel, updateTitle = {
                      title.value = it
                  } )
@@ -82,7 +74,7 @@ fun QuestionsDetails(navController: NavController, questionId:Int, questionsDeta
                          }
                          is AnswerDetailsViewState.Success -> {
 
-                             itemsIndexed(items = answerViewState.answer.items){index,item ->
+                             itemsIndexed(items = answerViewState.answer.items){_,item ->
 
                                  Row(modifier = Modifier.padding(start = 12.dp,top = 28.dp,bottom = 12.dp)){
                                      if(item.is_accepted) {
@@ -101,33 +93,27 @@ fun QuestionsDetails(navController: NavController, questionId:Int, questionsDeta
                                          .fillMaxSize(),
                                      text = item.body.trim()
                                  )
-                                 Row(){
+                                 Row{
                                      Spacer(modifier = Modifier.padding(start = 12.dp))
-                                     AuthorsDetails(
-                                         image = item.owner.profile_image,
+                                     DisplayAuthorDetails(
+                                         authorImage = item.owner.profile_image,
                                          displayName = item.owner.display_name ,
                                          reputation = item.owner.reputation,
                                          goldBadges = item.owner.badge_counts.gold,
                                          silverBadges = item.owner.badge_counts.silver,
                                          bronzeBadges = item.owner.badge_counts.bronze
                                      )
-
-
                                  }
-
                                  Spacer(modifier = Modifier.padding(bottom = 24.dp))
-
-
                              }
-
                          }
                          is AnswerDetailsViewState.Error -> {
 
                              item{
                                  Error(message = answerViewState.message,
-                                         onRetryClick = {
-                                                     questionsDetailsViewModel.getAnswersById(questionId)
-                                          }
+                                     onRetryClick = {
+                                         questionsDetailsViewModel.getAnswersById(questionId)
+                                     }
                                  )
                              }
                          }
@@ -146,22 +132,20 @@ fun QuestionsDetails(navController: NavController, questionId:Int, questionsDeta
 
         @Composable
         fun QuestionDetails(question: QuestionItem) {
-            Column() {
+            Column {
                 val questionItem = question.items.first()
-               val questionBody = questionItem?.body
-                val authorDetails = questionItem?.owner
-                Text(text = questionItem?.title, style = MaterialTheme.typography.body1, fontSize = 18.sp, fontWeight = FontWeight.Medium, modifier = Modifier.padding(12.dp))
+               val questionBody = questionItem.body
+                val authorDetails = questionItem.owner
+                Text(text = questionItem.title, style = MaterialTheme.typography.body1, fontSize = 18.sp, fontWeight = FontWeight.Medium, modifier = Modifier.padding(12.dp))
                 MarkDown(modifier = Modifier.fillMaxSize().padding(top = 6.dp),text = questionBody)
-
                 FlowRow(crossAxisSpacing = 10.dp, modifier = Modifier.padding(start = 12.dp, top = 16.dp, bottom = 16.dp)){
-                    for(items in questionItem?.tags)
-                        Chip(items)
+                    for(items in questionItem.tags)
+                        DisplayChip(items)
                 }
-
-                Row(){
+                Row{
                     Spacer(modifier = Modifier.padding(start = 16.dp,bottom = 16.dp))
-                    AuthorsDetails(
-                        image = authorDetails.profile_image,
+                    DisplayAuthorDetails(
+                        authorImage = authorDetails.profile_image,
                         displayName = authorDetails.display_name,
                         reputation = authorDetails.reputation,
                         goldBadges = authorDetails.badge_counts.gold ,
@@ -169,14 +153,11 @@ fun QuestionsDetails(navController: NavController, questionId:Int, questionsDeta
                         bronzeBadges = authorDetails.badge_counts.bronze
                     )
                 }
-
                 Spacer(modifier = Modifier.padding(vertical = 8.dp))
-
-                Text(text = questionItem?.answer_count.toString() + " " + "Answers", style = MaterialTheme.typography.subtitle2,
+                Text(text = questionItem.answer_count.toString() + " " + "Answers", style = MaterialTheme.typography.subtitle2,
                     fontSize = 18.sp, fontWeight = FontWeight.Medium,
                 modifier = Modifier.padding(start = 12.dp, bottom = 24.dp,top = 24.dp))
             }
-
         }
 
        @Composable
@@ -208,7 +189,6 @@ fun QuestionsDetails(navController: NavController, questionId:Int, questionsDeta
                    }
                    )
                }
-
            }
        }
 

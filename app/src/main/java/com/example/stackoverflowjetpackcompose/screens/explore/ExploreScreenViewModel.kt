@@ -24,7 +24,7 @@ class ExploreScreenViewModel @Inject constructor (private val repository: Reposi
   private fun fetchTags(){
     viewModelScope.launch{
       try{
-        getTags = repository.populartags().items
+        getTags = repository.popularTags().items
       }catch(e:Exception){
         Log.d("Error",e.toString())
       }

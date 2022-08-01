@@ -12,20 +12,25 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
-@HiltViewModel()
+@HiltViewModel
 class SearchViewModel @Inject constructor(private val repository: Repository): ViewModel(){
 
     private val _searchQuery = mutableStateOf("")
     val searchQuery = _searchQuery
 
-    private val _sortSearch = mutableStateOf("activity")
+    private val _sortSearch = mutableStateOf("creation")
     val sortSearch = _sortSearch
 
     fun updateSearchQuery(query:String){
         _searchQuery.value = query
     }
 
-    val _searchQuestions : MutableStateFlow<PagingData<Item>> = MutableStateFlow(PagingData.empty())
+    fun updateSortParam(newSort:String){
+        _sortSearch.value = newSort
+
+    }
+
+    private val _searchQuestions : MutableStateFlow<PagingData<Item>> = MutableStateFlow(PagingData.empty())
     val searchQuestions = _searchQuestions
 
     fun fetchSearchQuestions(query:String){

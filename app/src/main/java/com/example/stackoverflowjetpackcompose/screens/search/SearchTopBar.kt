@@ -27,7 +27,8 @@ import androidx.compose.ui.unit.dp
 
 @OptIn(ExperimentalComposeUiApi::class)
 @Composable
-fun SearchWidget(
+
+fun DisplaySearchWidget(
     text:String,
     onTextChange:(String) -> Unit,
     onSearchClick:(String) -> Unit,
@@ -44,10 +45,7 @@ fun SearchWidget(
         LaunchedEffect(Unit){
            focusRequester.requestFocus()
         }
-
-        val KeyboardController = LocalSoftwareKeyboardController.current
-
-
+        val keyboardController = LocalSoftwareKeyboardController.current
         TextField( modifier = Modifier.fillMaxWidth().focusRequester (focusRequester).onFocusChanged{
 
         }  ,
@@ -105,7 +103,7 @@ fun SearchWidget(
                     if(text.trim().isNotEmpty()){
                         onSearchClick(text)
                         focusRequester.freeFocus()
-                        KeyboardController?.hide()
+                        keyboardController?.hide()
 
                     }else{
                         return@KeyboardActions

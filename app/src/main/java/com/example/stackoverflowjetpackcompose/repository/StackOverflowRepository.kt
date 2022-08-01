@@ -14,36 +14,38 @@ import com.example.stackoverflowjetpackcompose.utils.Constants.ITEMS_PER_PAGE
 import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
 
-class Repository @Inject constructor(private val api: StackOverflowAPI){
+class Repository @Inject constructor(private val api: StackOverflowAPI) {
 
-    fun getQuestions(sort:String,tagged:String):Flow<PagingData<Item>>{
+    fun getQuestions(sort: String, tagged: String): Flow<PagingData<Item>> {
         return Pager(
             config = PagingConfig(pageSize = ITEMS_PER_PAGE),
             pagingSourceFactory = {
-                StackSource(api,sort,tagged)
+                StackSource(api, sort, tagged)
             }
         ).flow
     }
 
-  suspend fun getQuestionsbyid(questionId:Int): QuestionItem {
+    suspend fun getQuestionsById(questionId: Int): QuestionItem {
         return api.getQuestionsbyid(questionId)
     }
 
-    suspend fun getAnswersbyId(questionId:Int):Answers{
+    suspend fun getAnswersById(questionId: Int): Answers {
         return api.getAnswersbyid(questionId)
     }
 
-    suspend fun populartags(): Tag {
+    suspend fun popularTags(): Tag {
         return api.popularTags()
     }
 
 
-
-    fun searchQuestions(sort:String,intitle:String):Flow<PagingData<com.example.stackoverflowjetpackcompose.model.Search.Item>>{
+    fun searchQuestions(
+        sort: String,
+        intitle: String
+    ): Flow<PagingData<com.example.stackoverflowjetpackcompose.model.Search.Item>> {
         return Pager(
             config = PagingConfig(pageSize = ITEMS_PER_PAGE),
             pagingSourceFactory = {
-                SearchPagingSource(api,sort,intitle)
+                SearchPagingSource(api, sort, intitle)
 
             }
         ).flow

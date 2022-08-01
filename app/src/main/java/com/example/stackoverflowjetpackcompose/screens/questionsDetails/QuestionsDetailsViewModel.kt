@@ -25,7 +25,7 @@ class QuestionsDetailsViewModel @Inject constructor (private val repository: Rep
         viewModelScope.launch{
             viewState = QuestionDetailsViewState.Loading
             try{
-                val response = repository.getQuestionsbyid(questionId)
+                val response = repository.getQuestionsById(questionId)
                 viewState = QuestionDetailsViewState.Success(response)
             }catch(exception:Exception){
                 viewState = QuestionDetailsViewState.Error(exception.message)
@@ -37,7 +37,7 @@ class QuestionsDetailsViewModel @Inject constructor (private val repository: Rep
         viewModelScope.launch{
             answersViewState = AnswerDetailsViewState.Loading
             try{
-                val answerResponse = repository.getAnswersbyId(questionId)
+                val answerResponse = repository.getAnswersById(questionId)
                 answersViewState = AnswerDetailsViewState.Success(answerResponse)
             }catch(exception:Exception){
                 answersViewState = AnswerDetailsViewState.Error(exception.message)

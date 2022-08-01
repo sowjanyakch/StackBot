@@ -16,13 +16,13 @@ import javax.inject.Inject
 @HiltViewModel
 class QuestionsTitleViewModel @Inject constructor (private val repository:Repository) : ViewModel() {
 
-     val _questions: MutableStateFlow<PagingData<Item>> = MutableStateFlow(PagingData.empty())
-   val questions = _questions
+   private val _questions: MutableStateFlow<PagingData<Item>> = MutableStateFlow(PagingData.empty())
+    val questions = _questions
 
-    private val _sort = MutableStateFlow<String>("votes")
+    private val _sort = MutableStateFlow("votes")
     val sort = _sort
 
-    private val _tagged = MutableStateFlow<String>("android")
+    private val _tagged = MutableStateFlow("android")
     val tagged = _tagged
 
     init{
@@ -32,19 +32,16 @@ class QuestionsTitleViewModel @Inject constructor (private val repository:Reposi
 
     fun fetchQuestions() {
         viewModelScope.launch {
-
             repository.getQuestions(sort.value,tagged.value).cachedIn(viewModelScope).collect{
-
                 _questions.value = it
                 Log.d("questions_value", "$_questions.value")
             }
-
         }
     }
 
-    fun updateTagSort(newSort:String,newtag:String){
+    fun updateTagSort(newSort:String, newTag:String){
         _sort.value = newSort
-        _tagged.value = newtag
+        _tagged.value = newTag
         Log.d("tag name","$_tagged.value")
         fetchQuestions()
     }

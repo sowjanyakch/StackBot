@@ -15,7 +15,7 @@ import com.example.stackoverflowjetpackcompose.model.BottomMenuBar
 
 @Composable
 
-fun BottomMenu(navController: NavController){
+fun DisplayBottomMenu(navController: NavController) {
     val items = listOf(
         BottomMenuBar.Home,
         BottomMenuBar.Explore
@@ -23,13 +23,16 @@ fun BottomMenu(navController: NavController){
     val navBackStackEntry by navController.currentBackStackEntryAsState()
     val currentDestination = navBackStackEntry?.destination?.route
 
-    BottomNavigation(backgroundColor = Color.White,contentColor = colorResource(id = R.color.white)) {
-        items.forEach{
-           BottomNavigationItem(
-               onClick = {
-                    navController.navigate(it.route){
-                        navController.graph.startDestinationRoute?.let{route ->
-                            popUpTo(route){
+    BottomNavigation(
+        backgroundColor = Color.White,
+        contentColor = colorResource(id = R.color.white)
+    ) {
+        items.forEach {
+            BottomNavigationItem(
+                onClick = {
+                    navController.navigate(it.route) {
+                        navController.graph.startDestinationRoute?.let { route ->
+                            popUpTo(route) {
                                 saveState = true
                             }
                         }
@@ -37,18 +40,20 @@ fun BottomMenu(navController: NavController){
                         restoreState = true
                     }
 
-               },
-               label ={Text(text = it.title)},
-               selected = currentDestination == it.route,
-               selectedContentColor = Color.Blue,
-               unselectedContentColor = Color.Black,
+                },
+                label = { Text(text = it.title) },
+                selected = currentDestination == it.route,
+                selectedContentColor = Color.Blue,
+                unselectedContentColor = Color.Black,
 
-               alwaysShowLabel = true,
-               icon = {
-                   Icon(imageVector = it.icon,
-                   contentDescription = it.title)
-               }
-           )
+                alwaysShowLabel = true,
+                icon = {
+                    Icon(
+                        imageVector = it.icon,
+                        contentDescription = it.title
+                    )
+                }
+            )
         }
     }
 }

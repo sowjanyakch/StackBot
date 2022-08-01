@@ -4,5 +4,6 @@ enum class ScreensList {
     SplashScreen,
     QuestionsDetailScreen,
     SearchScreen,
-    PopularTagsScreen
+    PopularTagsScreen,
+    SearchQuestionsTitle
 }
