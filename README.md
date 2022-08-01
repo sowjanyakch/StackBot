@@ -3,7 +3,7 @@
 StackBot is a modern Android Client for Stack Overflow built from the ground up using Jetpack Compose. The data is obtained from the Stack Exchange API's.
 
 
-Tech Stacks used in the project:
+# Tech Stacks used in the project:
 
 Jetpack Compose - declarative UI
 
@@ -18,7 +18,7 @@ Retrofit - REST client for Android
 Compose Markdown View Library - render markdown on Android
 
 
-Features:
+# Features:
 
 Display questions with popular tag and sort them with filters( hot, week, month, votes, creation, activity)
 
