@@ -24,7 +24,7 @@ Display questions with popular tag and sort them with filters( hot, week, month,
 
 View questions and answers with the author details (reputation, name, badges count)
 
-Search a particular question and get the answer/answers
+Search a particular question and get answer/answers
 
 
 
