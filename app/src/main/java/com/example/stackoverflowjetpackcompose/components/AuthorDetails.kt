@@ -11,9 +11,12 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.testTag
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.example.stackoverflowjetpackcompose.R
 import com.example.stackoverflowjetpackcompose.ui.theme.Bronze
 import com.example.stackoverflowjetpackcompose.ui.theme.Gold
 import com.example.stackoverflowjetpackcompose.ui.theme.Silver
@@ -22,7 +25,7 @@ import com.skydoves.landscapist.glide.GlideImage
 
 // displays author details with reputation and the badges count
 @Composable
-fun DisplayAuthorDetails(
+fun AuthorDetails(
     authorImage: String,
     displayName: String,
     reputation: Int,
@@ -39,6 +42,7 @@ fun DisplayAuthorDetails(
             .clip(CircleShape),
         imageModel = authorImage,
         contentScale = ContentScale.Crop,
+        contentDescription = "Author Image"
     )
     Column {
         Text(text = displayName, fontSize = 12.sp, modifier = Modifier.padding(end = 1.dp))
@@ -59,21 +63,21 @@ fun DisplayAuthorDetails(
 
 // displays dot - gold, silver and bronze indicating different badge colors
 @Composable
-fun DisplayDot(color: Color) {
+internal fun DisplayDot(color: Color) {
     Box(
         modifier = Modifier
             .padding(start = 6.dp, top = 6.dp, bottom = 6.dp, end = 3.dp)
             .clip(CircleShape)
             .background(color)
             .size(5.dp)
+            .testTag("dot")
     )
 }
 
 
 // displays answer icon and answer count
 @Composable
-
-fun DisplayAnswerCount(
+internal fun DisplayAnswerCount(
     modifier: Modifier,
     imageVector: ImageVector,
     answerCount: String

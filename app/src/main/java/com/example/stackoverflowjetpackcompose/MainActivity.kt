@@ -13,7 +13,6 @@ import dagger.hilt.android.AndroidEntryPoint
 
 
 @AndroidEntryPoint
-
 class MainActivity : ComponentActivity() {
 
     private val questionsTitleViewModel by viewModels<QuestionsTitleViewModel>()
@@ -22,10 +21,10 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         setContent {
             val systemUiController = rememberSystemUiController()
-            systemUiController.setStatusBarColor(Color.White,darkIcons = true)
+            systemUiController.setStatusBarColor(Color.White, darkIcons = true)
             systemUiController.setNavigationBarColor(Color.White)
-            Log.d("Question Navigation","Question Navigation call" )
-           StackBotNavigation(questionsTitleViewModel)
+            Log.d("Question Navigation", "Question Navigation call")
+            StackBotNavigation(questionsTitleViewModel)
         }
     }
 }

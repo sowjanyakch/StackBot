@@ -16,8 +16,8 @@ import androidx.navigation.NavController
 import androidx.paging.compose.LazyPagingItems
 import androidx.paging.compose.collectAsLazyPagingItems
 import androidx.paging.compose.itemsIndexed
+import com.example.stackoverflowjetpackcompose.components.AuthorDetails
 import com.example.stackoverflowjetpackcompose.components.DisplayAnswerCount
-import com.example.stackoverflowjetpackcompose.components.DisplayAuthorDetails
 import com.example.stackoverflowjetpackcompose.model.Questions.Item
 import com.example.stackoverflowjetpackcompose.navigation.ScreensList
 
@@ -50,7 +50,7 @@ fun DisplayQuestionsTitle(navController: NavController, item: LazyPagingItems<It
                             navController.navigate(ScreensList.QuestionsDetailScreen.name + "/${item.question_id}")
                         }, fontSize = 16.sp, fontWeight = FontWeight.Medium
                 )
-                Row(modifier = Modifier.padding(top = 10.dp, bottom = 16.dp)){
+                Row(modifier = Modifier.padding(top = 10.dp, bottom = 16.dp)) {
                     val authorImage = item.owner.profile_image
                     val authorDetails = item.owner
                     val displayName = authorDetails.display_name
@@ -59,15 +59,19 @@ fun DisplayQuestionsTitle(navController: NavController, item: LazyPagingItems<It
                     val silverBadges = authorDetails.badge_counts.silver
                     val bronzeBadges = authorDetails.badge_counts.bronze
 
-                    DisplayAuthorDetails(
+                    AuthorDetails(
                         authorImage = authorImage,
                         displayName = displayName,
                         reputation = reputation,
                         goldBadges = goldBadges,
-                        silverBadges = silverBadges ,
+                        silverBadges = silverBadges,
                         bronzeBadges = bronzeBadges
                     )
-                    DisplayAnswerCount(modifier = Modifier.fillMaxSize(), imageVector = Icons.Outlined.QuestionAnswer, answerCount = item.answer_count.toString() )
+                    DisplayAnswerCount(
+                        modifier = Modifier.fillMaxSize(),
+                        imageVector = Icons.Outlined.QuestionAnswer,
+                        answerCount = item.answer_count.toString()
+                    )
                 }
 
             }

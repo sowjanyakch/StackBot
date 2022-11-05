@@ -26,8 +26,8 @@ import androidx.navigation.NavController
 import androidx.paging.compose.LazyPagingItems
 import androidx.paging.compose.collectAsLazyPagingItems
 import androidx.paging.compose.itemsIndexed
+import com.example.stackoverflowjetpackcompose.components.AuthorDetails
 import com.example.stackoverflowjetpackcompose.components.DisplayAnswerCount
-import com.example.stackoverflowjetpackcompose.components.DisplayAuthorDetails
 import com.example.stackoverflowjetpackcompose.model.Search.Item
 import com.example.stackoverflowjetpackcompose.navigation.ScreensList
 import com.example.stackoverflowjetpackcompose.screens.search.SearchViewModel
@@ -100,7 +100,7 @@ fun DisplayQuestionsTitle(navController: NavController, item: LazyPagingItems<It
                 val silverBadges = authorDetails.badge_counts.silver
                 val bronzeBadges = authorDetails.badge_counts.bronze
 
-                DisplayAuthorDetails(
+                AuthorDetails(
                     authorImage = authorImage,
                     displayName = displayName,
                     reputation = reputation,

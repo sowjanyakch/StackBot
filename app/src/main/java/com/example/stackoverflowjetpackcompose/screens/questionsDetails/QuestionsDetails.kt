@@ -1,5 +1,6 @@
 package com.example.stackoverflowjetpackcompose.screens.questionsDetails
 
+import android.annotation.SuppressLint
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.itemsIndexed
@@ -20,7 +21,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.core.text.HtmlCompat
 import androidx.navigation.NavController
-import com.example.stackoverflowjetpackcompose.components.DisplayAuthorDetails
+import com.example.stackoverflowjetpackcompose.components.AuthorDetails
 import com.example.stackoverflowjetpackcompose.components.DisplayChip
 import com.example.stackoverflowjetpackcompose.model.QuestionId.QuestionItem
 import com.google.accompanist.flowlayout.FlowRow
@@ -28,7 +29,7 @@ import com.mukesh.MarkDown
 
 
 @Composable
-
+@SuppressLint("UnusedMaterialScaffoldPaddingParameter")
 fun DisplayQuestionsDetails(navController: NavController, questionId:Int, questionsDetailsViewModel: QuestionsDetailsViewModel,
                             onBack:() -> Unit) {
     LaunchedEffect(key1 = questionId, block = {
@@ -58,7 +59,7 @@ fun DisplayQuestionsDetails(navController: NavController, questionId:Int, questi
             )
         },
 
-    ) {
+    ) { padding ->
         LazyColumn(modifier = Modifier.padding(8.dp)) {
              item {
                  QuestionView(questionId, questionsDetailsViewModel, updateTitle = {
@@ -95,7 +96,7 @@ fun DisplayQuestionsDetails(navController: NavController, questionId:Int, questi
                                  )
                                  Row{
                                      Spacer(modifier = Modifier.padding(start = 12.dp))
-                                     DisplayAuthorDetails(
+                                     AuthorDetails(
                                          authorImage = item.owner.profile_image,
                                          displayName = item.owner.display_name ,
                                          reputation = item.owner.reputation,
@@ -144,7 +145,7 @@ fun DisplayQuestionsDetails(navController: NavController, questionId:Int, questi
                 }
                 Row{
                     Spacer(modifier = Modifier.padding(start = 16.dp,bottom = 16.dp))
-                    DisplayAuthorDetails(
+                    AuthorDetails(
                         authorImage = authorDetails.profile_image,
                         displayName = authorDetails.display_name,
                         reputation = authorDetails.reputation,

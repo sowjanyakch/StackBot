@@ -1,5 +1,6 @@
 package com.example.stackoverflowjetpackcompose.screens.explore
 
+import android.annotation.SuppressLint
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
@@ -21,7 +22,7 @@ import com.example.stackoverflowjetpackcompose.screens.questionsTitle.QuestionsT
 import com.google.accompanist.flowlayout.FlowRow
 
 @Composable
-
+@SuppressLint("UnusedMaterialScaffoldPaddingParameter")
 fun ExploreScreen(navController:NavController, questionsTitleViewModel: QuestionsTitleViewModel, exploreScreenViewModel: ExploreScreenViewModel){
 
     val tags = exploreScreenViewModel.getTags
@@ -32,8 +33,7 @@ fun ExploreScreen(navController:NavController, questionsTitleViewModel: Question
                 DisplayBottomMenu(navController = navController)
 
         }
-    ) {
-
+    ) { padding ->
         Column(modifier = Modifier.padding(12.dp))
         {
                 DisplaySearchBar(navController = navController)
