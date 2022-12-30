@@ -50,14 +50,14 @@ class QuestionsDetailsViewModel @Inject constructor (private val repository: Rep
 sealed class QuestionDetailsViewState{
     object None: QuestionDetailsViewState()
     object Loading:QuestionDetailsViewState()
-    class Success(val question:QuestionItem):QuestionDetailsViewState()
-    class Error(val message: String?):QuestionDetailsViewState()
+    data class Success(val question:QuestionItem):QuestionDetailsViewState()
+    data class Error(val message: String?):QuestionDetailsViewState()
 }
 
 sealed class AnswerDetailsViewState{
     object None: AnswerDetailsViewState()
     object Loading:AnswerDetailsViewState()
-    class Success(val answer: Answers):AnswerDetailsViewState()
-    class Error(val message: String?):AnswerDetailsViewState()
+    data class Success(val answer: Answers):AnswerDetailsViewState()
+    data class Error(val message: String?):AnswerDetailsViewState()
 }
 

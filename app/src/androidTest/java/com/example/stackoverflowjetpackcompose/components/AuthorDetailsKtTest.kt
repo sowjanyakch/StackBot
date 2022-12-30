@@ -7,7 +7,6 @@ import androidx.compose.ui.test.onNodeWithText
 import org.junit.Rule
 import org.junit.Test
 
-
 internal class AuthorDetailsKtTest {
     @get:Rule
     val composeTestRule = createComposeRule()
@@ -31,10 +30,3 @@ internal class AuthorDetailsKtTest {
         }
     }
 }
-
-
-
-
-
-
-

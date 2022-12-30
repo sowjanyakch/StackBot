@@ -12,11 +12,9 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.testTag
-import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.example.stackoverflowjetpackcompose.R
 import com.example.stackoverflowjetpackcompose.ui.theme.Bronze
 import com.example.stackoverflowjetpackcompose.ui.theme.Gold
 import com.example.stackoverflowjetpackcompose.ui.theme.Silver
@@ -33,7 +31,6 @@ fun AuthorDetails(
     silverBadges: Int,
     bronzeBadges: Int
 ) {
-
     GlideImage(
         modifier = Modifier
             .padding(end = 4.dp)
@@ -48,7 +45,6 @@ fun AuthorDetails(
         Text(text = displayName, fontSize = 12.sp, modifier = Modifier.padding(end = 1.dp))
         Row {
             Text(text = reputation.toString(), fontSize = 12.sp)
-
             // display dot with gold color
             DisplayDot(Gold)
             // display gold badges count
@@ -82,7 +78,6 @@ internal fun DisplayAnswerCount(
     imageVector: ImageVector,
     answerCount: String
 ) {
-
     Row(
         modifier = modifier.padding(end = 3.dp),
         horizontalArrangement = Arrangement.End

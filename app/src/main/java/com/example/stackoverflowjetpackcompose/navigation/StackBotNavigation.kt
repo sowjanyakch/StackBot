@@ -41,7 +41,6 @@ fun StackBotNavigation(
                 navController = navController,
                 questionsTitleViewModel = questionsTitleViewModel
             )
-
         }
 
         composable(BottomMenuBar.Explore.route) {

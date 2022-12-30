@@ -1,5 +1,6 @@
 package com.example.stackoverflowjetpackcompose.tabs
 
+import android.annotation.SuppressLint
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyRow
@@ -15,6 +16,7 @@ import com.example.stackoverflowjetpackcompose.components.DisplayBottomMenu
 import com.example.stackoverflowjetpackcompose.screens.questionsTitle.QuestionTitle
 import com.example.stackoverflowjetpackcompose.screens.questionsTitle.QuestionsTitleViewModel
 
+@SuppressLint("StateFlowValueCalledInComposition")
 @Composable
 fun HomeScreen(navController:NavController, questionsTitleViewModel: QuestionsTitleViewModel){
 
@@ -28,7 +30,8 @@ fun HomeScreen(navController:NavController, questionsTitleViewModel: QuestionsTi
     },
         bottomBar = {
             DisplayBottomMenu(navController = navController)
-        }){
+        }){ padding->
+
         Column {
             val tabs = listOf(
                 "Hot",

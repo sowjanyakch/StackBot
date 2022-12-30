@@ -42,8 +42,8 @@ fun ExploreScreen(navController:NavController, questionsTitleViewModel: Question
                 Spacer(modifier = Modifier.padding(20.dp))
 
                FlowRow(crossAxisSpacing = 10.dp){
-                for(items in tags){
-                    val tagName = items.name
+                for(item in tags){
+                    val tagName = item.name
                     DisplayChip(navController= navController,tagName,questionsTitleViewModel)
                 }
             }

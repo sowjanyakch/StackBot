@@ -35,8 +35,6 @@ fun SearchScreen(
                 })
         },
        content = { paddingValues ->
-
-
        }
     )
 
