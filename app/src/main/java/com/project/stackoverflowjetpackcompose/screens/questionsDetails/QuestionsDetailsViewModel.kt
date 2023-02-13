@@ -8,37 +8,46 @@ import androidx.lifecycle.viewModelScope
 import com.project.stackoverflowjetpackcompose.model.Answers.Answers
 import com.project.stackoverflowjetpackcompose.model.QuestionId.QuestionItem
 import com.project.stackoverflowjetpackcompose.repository.Repository
+//import com.project.stackoverflowjetpackcompose.repository.StackRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.async
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class QuestionsDetailsViewModel @Inject constructor (private val repository: Repository) : ViewModel() {
+class QuestionsDetailsViewModel @Inject constructor (private val repository: Repository/*StackRepository*/) : ViewModel() {
 
-    var viewState by mutableStateOf<QuestionDetailsViewState>(QuestionDetailsViewState.None)
+    var questionsViewState by mutableStateOf<QuestionDetailsViewState>(QuestionDetailsViewState.None)
     private set
 
     var answersViewState by mutableStateOf<AnswerDetailsViewState>(AnswerDetailsViewState.None)
         private set
 
   fun getQuestionsById(questionId:Int){
-        viewModelScope.launch{
-            viewState = QuestionDetailsViewState.Loading
-            try{
-                val response = repository.getQuestionsById(questionId)
-                viewState = QuestionDetailsViewState.Success(response)
-            }catch(exception:Exception){
-                viewState = QuestionDetailsViewState.Error(exception.message)
-                }
-            }
+      questionsViewState = QuestionDetailsViewState.Loading
+        val questionDeferred = viewModelScope.async{
+            repository.getQuestionsById(questionId)
+        }
+
+      viewModelScope.launch{
+          try{
+              val questions = questionDeferred.await()
+              questionsViewState = QuestionDetailsViewState.Success(questions)
+          }catch(exception:Exception){
+              questionsViewState = QuestionDetailsViewState.Error(exception.message)
+          }
+      }
         }
 
     fun getAnswersById(questionId:Int){
+        answersViewState = AnswerDetailsViewState.Loading
+        val answerDeferred = viewModelScope.async{
+            repository.getAnswersById(questionId)
+        }
         viewModelScope.launch{
-            answersViewState = AnswerDetailsViewState.Loading
             try{
-                val answerResponse = repository.getAnswersById(questionId)
-                answersViewState = AnswerDetailsViewState.Success(answerResponse)
+                val answers = answerDeferred.await()
+                answersViewState = AnswerDetailsViewState.Success(answers)
             }catch(exception:Exception){
                 answersViewState = AnswerDetailsViewState.Error(exception.message)
             }

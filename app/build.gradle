@@ -108,7 +108,6 @@ dependencies {
     androidTestImplementation "androidx.compose.ui:ui-test-junit4:$compose_version"
     debugImplementation "androidx.compose.ui:ui-tooling:$compose_version"
     debugImplementation("androidx.compose.ui:ui-test-manifest:$compose_version")
-    testImplementation("com.google.dagger:hilt-android-testing:2.44")
     kaptTest("com.google.dagger:hilt-android-compiler:2.44")
     testAnnotationProcessor("com.google.dagger:hilt-android-compiler:2.44")
     testImplementation "com.nhaarman.mockitokotlin2:mockito-kotlin:2.2.0"
@@ -119,7 +118,7 @@ dependencies {
 
 
     // For instrumented tests.
-    androidTestImplementation("com.google.dagger:hilt-android-testing:2.44")
+   testImplementation("com.google.dagger:hilt-android-testing:2.44")
     // ...with Kotlin.
     kaptAndroidTest("com.google.dagger:hilt-android-compiler:2.44")
     implementation "com.google.accompanist:accompanist-flowlayout:0.24.12-rc"

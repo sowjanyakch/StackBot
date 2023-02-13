@@ -7,6 +7,7 @@ import androidx.paging.PagingData
 import androidx.paging.cachedIn
 import com.project.stackoverflowjetpackcompose.model.Questions.Item
 import com.project.stackoverflowjetpackcompose.repository.Repository
+//import com.project.stackoverflowjetpackcompose.repository.StackRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.launch
@@ -14,7 +15,7 @@ import javax.inject.Inject
 
 
 @HiltViewModel
-class QuestionsTitleViewModel @Inject constructor (private val repository: Repository) : ViewModel() {
+class QuestionsTitleViewModel @Inject constructor (private val repository:Repository /*StackRepository*/) : ViewModel() {
 
    private val _questions: MutableStateFlow<PagingData<Item>> = MutableStateFlow(PagingData.empty())
     val questions = _questions

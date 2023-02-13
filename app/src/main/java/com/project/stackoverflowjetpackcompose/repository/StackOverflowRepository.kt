@@ -14,9 +14,9 @@ import com.project.stackoverflowjetpackcompose.utils.Constants.ITEMS_PER_PAGE
 import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
 
-class Repository @Inject constructor(private val api: StackOverflowAPI) {
+class Repository @Inject constructor(private val api: StackOverflowAPI) /*: StackRepository */{
 
-    fun getQuestions(sort: String, tagged: String): Flow<PagingData<Item>> {
+   /* override */fun getQuestions(sort: String, tagged: String): Flow<PagingData<Item>> {
         return Pager(
             config = PagingConfig(pageSize = ITEMS_PER_PAGE),
             pagingSourceFactory = {

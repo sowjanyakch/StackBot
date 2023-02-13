@@ -168,7 +168,7 @@ fun DisplayQuestionsDetails(navController: NavController, questionId:Int, questi
            questionsDetailsViewModel:QuestionsDetailsViewModel,
            updateTitle:(title:String) ->Unit
        ){
-           when (val viewState = questionsDetailsViewModel.viewState) {
+           when (val viewState = questionsDetailsViewModel.questionsViewState) {
 
                is QuestionDetailsViewState.None -> {
 
