@@ -16,7 +16,7 @@ import javax.inject.Inject
 
 class Repository @Inject constructor(private val api: StackOverflowAPI) /*: StackRepository */{
 
-   /* override */fun getQuestions(sort: String, tagged: String): Flow<PagingData<Item>> {
+  fun getQuestions(sort: String, tagged: String): Flow<PagingData<Item>> {
         return Pager(
             config = PagingConfig(pageSize = ITEMS_PER_PAGE),
             pagingSourceFactory = {

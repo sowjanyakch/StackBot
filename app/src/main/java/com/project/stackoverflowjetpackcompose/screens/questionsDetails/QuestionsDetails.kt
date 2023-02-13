@@ -1,6 +1,7 @@
 package com.project.stackoverflowjetpackcompose.screens.questionsDetails
 
 import android.annotation.SuppressLint
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.itemsIndexed
@@ -25,13 +26,13 @@ import com.project.stackoverflowjetpackcompose.components.DisplayChip
 import com.google.accompanist.flowlayout.FlowRow
 import com.mukesh.MarkDown
 import com.project.stackoverflowjetpackcompose.components.AuthorDetails
+import com.project.stackoverflowjetpackcompose.model.BottomMenuBar
 import com.project.stackoverflowjetpackcompose.model.QuestionId.QuestionItem
 
 
 @Composable
 @SuppressLint("UnusedMaterialScaffoldPaddingParameter")
-fun DisplayQuestionsDetails(navController: NavController, questionId:Int, questionsDetailsViewModel: QuestionsDetailsViewModel,
-                            onBack:() -> Unit) {
+fun DisplayQuestionsDetails(navController: NavController, questionId:Int, questionsDetailsViewModel: QuestionsDetailsViewModel) {
     LaunchedEffect(key1 = questionId, block = {
         questionsDetailsViewModel.getQuestionsById(questionId)
         questionsDetailsViewModel.getAnswersById(questionId)
@@ -47,13 +48,16 @@ fun DisplayQuestionsDetails(navController: NavController, questionId:Int, questi
                 )
             },
                 navigationIcon = {
-                    IconButton(onClick = onBack) {
                         Icon(
+                            modifier = Modifier.clickable{
+                                navController.popBackStack()
+                                navController.navigate(BottomMenuBar.Home.route)
+                            },
                             imageVector = Icons.Filled.ArrowBack,
                             contentDescription = "Back",
                             tint = Color.Black
                         )
-                    }
+
                 },
                 backgroundColor = Color.White
             )
@@ -126,7 +130,7 @@ fun DisplayQuestionsDetails(navController: NavController, questionId:Int, questi
 
         @Composable
         fun Loading() {
-            Box(contentAlignment = Alignment.Center) {
+            Box(modifier = Modifier.fillMaxSize(),contentAlignment = Alignment.Center) {
                 CircularProgressIndicator()
             }
         }

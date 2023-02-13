@@ -60,11 +60,7 @@ fun StackBotNavigation(
             navBack.arguments?.getInt("question_id")?.let { questionId ->
                 DisplayQuestionsDetails(navController = navController,
                     questionId,
-                    questionsDetailsViewModel = questionsDetailsViewModel,
-                    onBack = {
-                        navController.popBackStack()
-                        navController.navigate(BottomMenuBar.Home.route)
-                    }
+                    questionsDetailsViewModel = questionsDetailsViewModel
                 )
             }
         }
