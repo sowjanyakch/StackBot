@@ -46,7 +46,6 @@ fun DisplayQuestionsTitle(navController: NavController, item: LazyPagingItems<It
                     modifier = Modifier
                         .fillMaxSize()
                         .clickable {
-                            navController.popBackStack()
                             navController.navigate(ScreensList.QuestionsDetailScreen.name + "/${item.question_id}")
                         }, fontSize = 16.sp, fontWeight = FontWeight.Medium
                 )

@@ -64,12 +64,6 @@ fun SplashScreen(navController: NavController){
 
             Text(text = "StackBot", style = MaterialTheme.typography.h5,
             color = Color.Red)
-
         }
     }
-
-
-
-
-
 }

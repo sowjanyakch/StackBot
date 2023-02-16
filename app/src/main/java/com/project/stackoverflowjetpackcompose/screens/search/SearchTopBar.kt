@@ -67,7 +67,7 @@ fun DisplaySearchWidget(
                     modifier = Modifier.alpha(alpha = ContentAlpha.medium),
                     onClick = {
                         onTextChange("")
-                      onCloseClick()
+                        onCloseClick()
 
                     }
                 ){

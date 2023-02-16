@@ -27,7 +27,6 @@ fun ExploreScreen(navController:NavController, questionsTitleViewModel: Question
 
     val tags = exploreScreenViewModel.getTags
 
-
     Scaffold(
         bottomBar = {
                 DisplayBottomMenu(navController = navController)
@@ -69,7 +68,6 @@ fun DisplayChip(navController: NavController, tagName: String, questionsTitleVie
                     .padding(8.dp)
                     .clickable(onClick = {
                         questionsTitleViewModel.updateTagSort("",tagName)
-                        //navController.popBackStack()
                         navController.navigate(ScreensList.PopularTagsScreen.name)
                     })
             )
@@ -91,9 +89,7 @@ fun DisplayChip(navController: NavController, tagName: String, questionsTitleVie
         ) {
 
             Row(modifier = Modifier.clickable{
-                    navController.popBackStack()
                     navController.navigate(ScreensList.SearchScreen.name)
-
                 }
                 )
             {

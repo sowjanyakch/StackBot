@@ -22,6 +22,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.core.text.HtmlCompat
 import androidx.navigation.NavController
+import androidx.navigation.compose.rememberNavController
 import com.project.stackoverflowjetpackcompose.components.DisplayChip
 import com.google.accompanist.flowlayout.FlowRow
 import com.mukesh.MarkDown
@@ -50,14 +51,12 @@ fun DisplayQuestionsDetails(navController: NavController, questionId:Int, questi
                 navigationIcon = {
                         Icon(
                             modifier = Modifier.clickable{
-                                navController.popBackStack()
-                                navController.navigate(BottomMenuBar.Home.route)
+                              navController.popBackStack()
                             },
                             imageVector = Icons.Filled.ArrowBack,
                             contentDescription = "Back",
                             tint = Color.Black
                         )
-
                 },
                 backgroundColor = Color.White
             )
@@ -142,7 +141,9 @@ fun DisplayQuestionsDetails(navController: NavController, questionId:Int, questi
                val questionBody = questionItem.body
                 val authorDetails = questionItem.owner
                 Text(text = questionItem.title, style = MaterialTheme.typography.body1, fontSize = 18.sp, fontWeight = FontWeight.Medium, modifier = Modifier.padding(12.dp))
-                MarkDown(modifier = Modifier.fillMaxSize().padding(top = 6.dp),text = questionBody)
+                MarkDown(modifier = Modifier
+                    .fillMaxSize()
+                    .padding(top = 6.dp),text = questionBody)
                 FlowRow(crossAxisSpacing = 10.dp, modifier = Modifier.padding(start = 12.dp, top = 16.dp, bottom = 16.dp)){
                     for(items in questionItem.tags)
                         DisplayChip(items)

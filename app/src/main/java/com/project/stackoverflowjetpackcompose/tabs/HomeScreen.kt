@@ -48,8 +48,6 @@ fun HomeScreen(navController:NavController, questionsTitleViewModel: QuestionsTi
 
             LazyRow {
                 itemsIndexed(tabs){_, tabs ->
-
-
                     Button(onClick = {
                         questionsTitleViewModel.updateTagSort(tabs.lowercase(),"")
                     },
