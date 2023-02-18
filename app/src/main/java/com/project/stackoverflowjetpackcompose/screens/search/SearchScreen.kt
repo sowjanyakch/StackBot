@@ -16,7 +16,7 @@ fun SearchScreen(
     searchViewModel: SearchViewModel
 
 ) {
-    val searchQuery by searchViewModel.searchQuery
+   val searchQuery by searchViewModel.searchQuery
     Scaffold(
         topBar = {
             DisplaySearchWidget(text = searchQuery,
@@ -26,7 +26,7 @@ fun SearchScreen(
                 },
                 // on search click, update query and get searched questions title list
                 onSearchClick = { query ->
-                    searchViewModel.fetchSearchQuestions(query)
+                    searchViewModel.fetchSearchQuestions()
                     navController.popBackStack()
                     navController.navigate(ScreensList.SearchQuestionsTitle.name)
                 },

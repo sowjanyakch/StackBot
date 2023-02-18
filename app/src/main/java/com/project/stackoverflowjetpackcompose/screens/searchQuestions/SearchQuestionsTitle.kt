@@ -118,20 +118,20 @@ fun DisplayQuestionsTitle(navController: NavController, item: LazyPagingItems<It
 @Composable
 
 fun DisplaySortOptions(navController: NavController, searchViewModel:SearchViewModel){
-    val searchedQuestions = searchViewModel.searchQuestions.collectAsLazyPagingItems()
-    Log.d("Searched Questions","$searchedQuestions")
+
+
     val tabs = listOf(
         "Creation",
+        "Relevance",
         "Activity",
-        "Votes",
-        "Relevance"
-
+        "Votes"
     )
     Column{
         LazyRow {
             itemsIndexed(tabs){_, tabs ->
                 Button(onClick = {
                     searchViewModel.updateSortParam(tabs.lowercase())
+                    searchViewModel.fetchSearchQuestions()
                 },
                     shape = RoundedCornerShape(3.dp),
                     colors = ButtonDefaults.buttonColors(backgroundColor = Color.White,
@@ -141,6 +141,9 @@ fun DisplaySortOptions(navController: NavController, searchViewModel:SearchViewM
                 }
             }
         }
+
+
+        val searchedQuestions = searchViewModel.searchQuestions.collectAsLazyPagingItems()
         DisplayQuestionsTitle(navController = navController, item = searchedQuestions)
     }
 }
