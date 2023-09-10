@@ -7,14 +7,14 @@ import androidx.lifecycle.viewModelScope
 import androidx.paging.PagingData
 import androidx.paging.cachedIn
 import com.project.stackoverflowjetpackcompose.model.Search.Item
-import com.project.stackoverflowjetpackcompose.repository.Repository
+import com.project.stackoverflowjetpackcompose.repository.StackOverflowRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class SearchViewModel @Inject constructor(private val repository: Repository): ViewModel(){
+class SearchViewModel @Inject constructor(private val repository: StackOverflowRepository): ViewModel(){
 
     private val _searchQuery = mutableStateOf("")
     val searchQuery = _searchQuery

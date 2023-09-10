@@ -7,13 +7,13 @@ import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.project.stackoverflowjetpackcompose.model.Tags.Item
-import com.project.stackoverflowjetpackcompose.repository.Repository
+import com.project.stackoverflowjetpackcompose.repository.StackOverflowRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class ExploreScreenViewModel @Inject constructor (private val repository: Repository) : ViewModel() {
+class ExploreScreenViewModel @Inject constructor(private val repository: StackOverflowRepository) : ViewModel() {
 
   var getTags: List<Item> by mutableStateOf(emptyList())
 

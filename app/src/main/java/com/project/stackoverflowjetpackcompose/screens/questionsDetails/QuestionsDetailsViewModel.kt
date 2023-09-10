@@ -7,15 +7,14 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.project.stackoverflowjetpackcompose.model.Answers.Answers
 import com.project.stackoverflowjetpackcompose.model.QuestionId.QuestionItem
-import com.project.stackoverflowjetpackcompose.repository.Repository
-//import com.project.stackoverflowjetpackcompose.repository.StackRepository
+import com.project.stackoverflowjetpackcompose.repository.StackOverflowRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.async
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class QuestionsDetailsViewModel @Inject constructor (private val repository: Repository/*StackRepository*/) : ViewModel() {
+class QuestionsDetailsViewModel @Inject constructor (private val repository: StackOverflowRepository) : ViewModel() {
 
     var questionsViewState by mutableStateOf<QuestionDetailsViewState>(QuestionDetailsViewState.None)
     private set

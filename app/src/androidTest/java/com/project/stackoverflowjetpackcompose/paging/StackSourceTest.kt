@@ -13,7 +13,7 @@ package com.project.stackoverflowjetpackcompose.paging
 //import org.mockito.ArgumentMatchers.anyString
 //import org.mockito.Mockito.mock
 
-
+//
 //internal class StackSourceTest {
 //    val item1:Item = Item(0,"abc","def",32,"n/a",12,true,12,12,"http:",
 //    mock(),0,1,emptyList(),"Item1",34)
@@ -31,6 +31,11 @@ package com.project.stackoverflowjetpackcompose.paging
 //    val apiMock = mock<StackOverflowAPI>(){
 //      onBlocking{getQuestions(anyInt(),anyInt(),anyString(),anyString())} doReturn questionsItem
 //    }
+//
+//    private fun <T> mock(clazz: Class<T>): T {
+//
+//    }
+//
 //    val pagingSource =
 //        com.project.stackoverflowjetpackcompose.paging.StackSource(apiMock, "votes", "android")
 //
