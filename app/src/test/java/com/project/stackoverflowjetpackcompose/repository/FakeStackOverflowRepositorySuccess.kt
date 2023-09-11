@@ -25,7 +25,7 @@ class FakeStackOverflowRepositorySuccess():StackOverflowRepository {
     }
 
     override suspend fun popularTags(): Tag {
-        TODO("Not yet implemented")
+       return FakeItem.tagItems
     }
 
     override fun searchQuestions(

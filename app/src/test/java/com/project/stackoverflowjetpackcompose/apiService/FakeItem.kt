@@ -6,6 +6,7 @@ import com.project.stackoverflowjetpackcompose.model.Questions.BadgeCounts
 import com.project.stackoverflowjetpackcompose.model.Questions.Owner
 import com.project.stackoverflowjetpackcompose.model.Questions.Item
 import com.project.stackoverflowjetpackcompose.model.Questions.Questions
+import com.project.stackoverflowjetpackcompose.model.Tags.Tag
 
 object FakeItem{
 
@@ -42,9 +43,9 @@ object FakeItem{
 
     val questionItems = QuestionItem(true, listOf(questionItem1,questionItem2),100,10)
 
+    val tagItem1 = com.project.stackoverflowjetpackcompose.model.Tags.Item(5, true,true,true, "android")
+    val tagItem2 = com.project.stackoverflowjetpackcompose.model.Tags.Item(5, true,true,true, "kotlin")
 
-
-
-
+    val tagItems = Tag(true, listOf(tagItem1,tagItem2),100,10)
 
 }

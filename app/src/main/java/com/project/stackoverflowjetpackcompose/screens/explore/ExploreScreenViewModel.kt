@@ -21,7 +21,7 @@ class ExploreScreenViewModel @Inject constructor(private val repository: StackOv
     fetchTags()
   }
 
-  private fun fetchTags(){
+   fun fetchTags(){
     viewModelScope.launch{
       try{
         getTags = repository.popularTags().items

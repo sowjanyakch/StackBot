@@ -20,18 +20,18 @@ import org.mockito.Mockito.`when`
 import org.mockito.Mockito.mock
 
 
-
+@OptIn(ExperimentalCoroutinesApi::class)
 class QuestionsDetailsViewModelTest {
 
     private lateinit var viewModel: QuestionsDetailsViewModel
-        private val repository: StackOverflowRepository = FakeStackOverflowRepositorySuccess()
+    private val repository: StackOverflowRepository = FakeStackOverflowRepositorySuccess()
 
     private val repo:StackOverflowRepository = mock{
         onBlocking{getAnswersById(anyInt())} doReturn Answers(true, emptyList(),1500,1000)
 
     }
 
-    val dispatcher = TestCoroutineDispatcher()
+    val dispatcher: TestDispatcher = UnconfinedTestDispatcher()
     @Before
     fun setup() {
         Dispatchers.setMain(dispatcher)
@@ -41,6 +41,7 @@ class QuestionsDetailsViewModelTest {
         Dispatchers.resetMain()
     }
 
+
     @Test
     fun `Initial viewState of questionsViewState is None`() = runTest() {
         viewModel = QuestionsDetailsViewModel(repository)
@@ -48,7 +49,7 @@ class QuestionsDetailsViewModelTest {
         assertThat(questionViewState, instanceOf(QuestionDetailsViewState.None::class.java))
     }
 
-    @OptIn(ExperimentalCoroutinesApi::class)
+
     @Test
     fun ` getQuestionsById should update state to Success when data is fetched successfully `() = runTest()
     {
@@ -61,6 +62,7 @@ class QuestionsDetailsViewModelTest {
         assert(successState.question == mockQuestions)
     }
 
+
     @Test
     fun `getQuestionsById should update ViewState to Error when an exception occurs`() {
         val questionId = 1
@@ -72,6 +74,7 @@ class QuestionsDetailsViewModelTest {
         val errorState = viewModel.questionsViewState as QuestionDetailsViewState.Error
         assert(errorState.message == errorMessage)
     }
+
 
     @Test
     fun `getQuestionsById should set ViewState to Loading`() = runBlocking  {
@@ -101,7 +104,6 @@ class QuestionsDetailsViewModelTest {
         assertThat(answerViewState, instanceOf(AnswerDetailsViewState.None::class.java))
     }
 
-    @OptIn(ExperimentalCoroutinesApi::class)
     @Test
     fun ` getAnswersById should update state to Success when data is fetched successfully `() = runTest()
     {
@@ -126,9 +128,9 @@ class QuestionsDetailsViewModelTest {
         assert(errorState.message == errorMessage)
     }
 
-    @OptIn(ExperimentalCoroutinesApi::class)
+
     @Test
-    fun `should return viewState Loading when getAnswersById is called`() =  runBlocking  {
+    fun `should set viewState Loading when getAnswersById is called`() =  runBlocking  {
 
         val questionId = 1
         val delayedRepository = mock(StackOverflowRepository::class.java)

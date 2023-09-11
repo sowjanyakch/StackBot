@@ -22,7 +22,7 @@ class QuestionsDetailsViewModel @Inject constructor (private val repository: Sta
     var answersViewState by mutableStateOf<AnswerDetailsViewState>(AnswerDetailsViewState.None)
         private set
 
-  fun getQuestionsById(questionId:Int){
+   fun getQuestionsById(questionId:Int){
       questionsViewState = QuestionDetailsViewState.Loading
         val questionDeferred = viewModelScope.async{
             repository.getQuestionsById(questionId)

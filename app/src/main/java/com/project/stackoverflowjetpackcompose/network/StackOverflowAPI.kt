@@ -21,7 +21,6 @@ interface StackOverflowAPI {
         @Query("tagged") tagged: String,
     ): Questions
 
-    //https://api.stackexchange.com/2.3/questions/%7Bids%7D?order=desc&sort=votes&site=stackoverflow&filter=!.KWpexRLnilEdYD1dnmMsENXUo58*
 
     @GET("/2.3/questions/{ids}?order=desc&sort=votes&site=stackoverflow&filter=!.KWpexRLnilEdYD1dnmMsENXUo58*")
     suspend fun getQuestionsbyid(
